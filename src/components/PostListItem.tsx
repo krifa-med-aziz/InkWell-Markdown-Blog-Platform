@@ -1,64 +1,131 @@
 import { Link } from "react-router-dom";
 import type { TPostListItem } from "../lib/type";
+import { getAuthorInitials } from "../utils/getAuthorInitials ";
+import { BookmarkPlus } from "lucide-react";
 
 type PostListItemProps = {
   post: TPostListItem;
+  featured?: boolean;
 };
 
-export function PostListItem({ post }: PostListItemProps) {
-  const getAuthorInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
-  };
-
-  return (
-    <Link to={post.id}>
-      <article className="flex flex-col h-full bg-white rounded-xl min-h-[470px] shadow-sm  hover:shadow-md transition-shadow overflow-hidden">
-        {post.image && (
-          <div className="aspect-video overflow-hidden ">
-            <img
-              src={post.image || "/placeholder.svg"}
-              alt={post.title}
-              width={400}
-              height={200}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-        )}
-        <div className="p-6 flex flex-col ">
-          <div className="flex flex-wrap gap-2 mb-3">
-            {post.tags.slice(0, 2).map((tag) => (
-              <p
-                key={tag}
-                className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
-              >
-                {tag}
-              </p>
-            ))}
-          </div>
-
-          <h3 className="text-xl font-bold text-slate-900 mb-2  ">
-            {post.title}
-          </h3>
-
-          <p className="text-slate-600 mb-4 line-clamp-3">{post.excerpt}</p>
-          <div className="flex items-center justify-between mt-auto">
-            <div className="flex items-center space-x-3">
-              <p className="text-xs">{getAuthorInitials(post.author)}</p>
-
-              <div>
-                <p className="text-sm font-medium text-slate-900">
-                  {post.author}
+export function PostListItem({ post, featured = false }: PostListItemProps) {
+  if (featured) {
+    return (
+      <Link to={`posts/${post.id}`}>
+        <article className="flex flex-col  bg-white rounded-xl min-h-[470px] shadow-sm  hover:shadow-md transition-shadow overflow-hidden">
+          {post.image && (
+            <div className="aspect-video overflow-hidden ">
+              <img
+                src={post.image || "/placeholder.svg"}
+                alt={post.title}
+                width={400}
+                height={200}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          )}
+          <div className="p-6 flex flex-col min-h-[300px] ">
+            <div className="flex flex-wrap gap-2 mb-3">
+              {post.tags.slice(0, 2).map((tag) => (
+                <p
+                  key={tag}
+                  className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
+                >
+                  {tag}
                 </p>
-                <p className="text-xs text-slate-500">{post.date}</p>
+              ))}
+            </div>
+
+            <h3 className="text-xl font-bold text-slate-900 mb-2">
+              {post.title}
+            </h3>
+
+            <p className="text-slate-600 mb-4 line-clamp-3">{post.excerpt}</p>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-between mt-auto">
+              <div className="flex items-center space-x-3">
+                <p className="text-sm border border-gray-300 rounded-3xl px-2 py-1">
+                  {getAuthorInitials(post.author)}
+                </p>
+
+                <div>
+                  <p>{post.author}</p>
+                  <p className="text-xs text-slate-500">{post.date}</p>
+                </div>
+              </div>
+              <div className="flex flex-col-reverse sm:flex-row gap-1 items-center text-slate-500 text-sm">
+                <BookmarkPlus
+                  className="h-4 w-4 cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log("Bookmarked!");
+                  }}
+                />
+                <div className="flex items-center">
+                  <small> Last updated :</small>
+                  <small> {post.lastUpdatedDate}</small>
+                </div>
               </div>
             </div>
-            <div className="flex flex-col items-center text-slate-500 text-sm">
-              <small>Last Updated:</small>
-              <small>{post.lastUpdatedDate}</small>
+          </div>
+        </article>
+      </Link>
+    );
+  }
+  return (
+    <Link to={`/posts/${post.id}`}>
+      <article className="border-b border-slate-200 py-8 px-8">
+        <div className="flex flex-wrap gap-2 mb-3">
+          {post.tags.slice(0, 3).map((tag) => (
+            <p
+              key={tag}
+              className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
+            >
+              {tag}
+            </p>
+          ))}
+        </div>
+        <div className="flex flex-col-reverse md:flex-row items-center justify-center">
+          <div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+              {post.title}
+            </h2>
+            <p className="text-slate-600 mb-4 text-lg leading-relaxed">
+              {post.excerpt}
+            </p>
+          </div>
+          {post.image && (
+            <div className="rounded-xl overflow-hidden my-4">
+              <img
+                className="aspect-3/2 w-[450px]"
+                src={post.image}
+                alt={post.title}
+              />
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-between">
+          <div className="flex flex-col sm:flex-row  items-center space-x-3">
+            <p className="text-lg border border-gray-300 rounded-3xl px-2 py-1 ">
+              {getAuthorInitials(post.author)}
+            </p>
+            <div className="text-center sm:text-left">
+              <p className="font-medium text-slate-900">{post.author}</p>
+              <p className="text-sm text-slate-500">{post.date}</p>
+            </div>
+          </div>
+          <div className="flex flex-col-reverse sm:flex-row  gap-1 items-center text-slate-500">
+            <BookmarkPlus
+              className="h-5 w-5 cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log("Bookmarked!");
+              }}
+            />
+            <div className="flex items-center">
+              <small> Last updated :</small>
+              <small> {post.lastUpdatedDate}</small>
             </div>
           </div>
         </div>

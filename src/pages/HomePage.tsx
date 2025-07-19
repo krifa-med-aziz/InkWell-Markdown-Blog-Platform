@@ -17,17 +17,23 @@ export default function HomePage() {
               expertise from writers on any topic that matters to you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="posts"
+              <button
+                onClick={() => {
+                  const section = document.getElementById("featured_posts");
+                  section?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="text-lg px-8 flex justify-center items-center bg-black text-white gap-3 py-2 rounded-xl cursor-pointer hover:opacity-80"
               >
                 Start Reading
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <button className="text-lg px-8 py-2 bg-transparent  flex justify-center items-center border border-gray-300 cursor-pointer rounded-xl hover:bg-gray-200">
+              </button>
+              <Link
+                to="posts"
+                className="text-lg px-8 py-2 bg-transparent  flex justify-center items-center border border-gray-300 cursor-pointer rounded-xl hover:bg-gray-200"
+              >
                 Start Writing
                 <PenTool className="ml-2 h-4 w-4" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -66,19 +72,19 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className="py-16 bg-slate-100 ">
+      <section id="featured_posts" className="py-16 bg-slate-100 ">
         <div className="max-w-6xl mx-auto px-4 w-[95%] sm:w-[80%] m-auto">
           <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
             Featured Posts
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {seedData.map((post) => (
-              <PostListItem key={post.id} post={post} />
+              <PostListItem key={post.id} post={post} featured />
             ))}
           </div>
           <div className="text-center mt-12">
             <Link
-              to={"/posts"}
+              to={"posts"}
               className="text-black bg-transparent border px-8 py-2 rounded-xl m-auto border-gray-200 flex justify-center items-center gap-2 cursor-pointer hover:bg-gray-200  w-[65%] md:w-[35%]"
             >
               View All Posts

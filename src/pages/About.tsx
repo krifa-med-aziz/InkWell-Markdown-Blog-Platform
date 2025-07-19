@@ -1,4 +1,5 @@
 import { Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function AboutPage() {
   return (
@@ -88,9 +89,12 @@ export default function AboutPage() {
             InkWell is the perfect place to share your voice with the world.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-around">
-            <button className="text-lg px-8 text-black bg-white rounded-[5px] py-2 max-w-[80%] m-auto cursor-pointer font-semibold">
+            <Link
+              to="/posts"
+              className="text-lg px-8 text-black bg-white rounded-[5px] py-2 max-w-[80%] m-auto cursor-pointer font-semibold"
+            >
               Start Writing Today
-            </button>
+            </Link>
             <button className="flex  items-center justify-center py-2 max-w-[80%] m-auto text-lg px-8 border-white text-white hover:bg-white hover:text-blue-600 bg-transparent rounded-[5px] cursor-pointer">
               <Mail className="mr-2 h-5 w-5" />
               Get in Touch

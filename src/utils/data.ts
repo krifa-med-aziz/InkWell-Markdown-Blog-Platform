@@ -107,7 +107,6 @@ Track changes in your code, collaborate with others, and roll back when necessar
 
 Platforms like GitHub make collaboration even easier.
 
-![Git Logo](https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg)
 `,
   },
   {
@@ -130,7 +129,7 @@ React apps rely heavily on two key data types: **props** and **state**.
 Props are **read-only** values passed from parent to child components.
 
 \`\`\`js
-<MyComponent name="Aziz" />
+<MyComponent name="Test" />
 \`\`\`
 
 ## ⚡ State
@@ -143,7 +142,6 @@ const [count, setCount] = useState(0);
 
 > Think of props as *inputs*, and state as *local memory*.
 
-![React Props vs State](https://miro.medium.com/v2/resize:fit:828/format:webp/1*w-sGcKABoIikEakdVKkpXw.png)
 `,
   },
   {
@@ -185,7 +183,6 @@ Reduces array to a single value.
 [1, 2, 3].reduce((a, b) => a + b, 0); // 6
 \`\`\`
 
-![JS Array Methods](https://res.cloudinary.com/practicaldev/image/fetch/s--T-f7Wdsu--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/mz3x93vb8a82bxqpo8ke.png)
 `,
   },
   {
@@ -219,7 +216,6 @@ Tailwind CSS is a **utility-first CSS framework** that lets you style apps quick
 
 Tailwind can speed up your development process and keep your CSS lean and maintainable.
 
-![Tailwind CSS](https://tailwindcss.com/_next/static/media/social-card-large.2f46b0f3.jpg)
 `,
   },
 ];

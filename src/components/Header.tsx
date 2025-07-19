@@ -1,4 +1,4 @@
-import { PenTool, Text, User } from "lucide-react";
+import { Bookmark, PenTool, Text, User } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function Header() {
@@ -35,34 +35,11 @@ export function Header() {
             </nav>
           </div>
           <div className="hidden md:flex  items-center space-x-4">
-            <div className="relative w-full max-w-md">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition"
-              />
-              <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1116.65 2a7.5 7.5 0 010 14.5z"
-                />
-              </svg>
-            </div>
-
+            <Bookmark className="h-5 w-5 cursor-pointer" />
             <button className="cursor-pointer">
               <User className="h-5 w-5" />
             </button>
-            <button className="flex items-center justify-center gap-2 bg-black text-white rounded-[5px] p-2">
+            <button className="cursor-pointer flex items-center justify-center gap-2 bg-black text-white rounded-[5px] p-2">
               <PenTool className=" h-4 w-4" />
               Write
             </button>
@@ -110,7 +87,7 @@ export default function DropDownMenu() {
           </MenuItem>
           <MenuItem>
             <Link
-              to="/blog"
+              to="/posts"
               className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
             >
               Posts
@@ -119,12 +96,13 @@ export default function DropDownMenu() {
 
           <form action="#" method="POST">
             <MenuItem>
-              <button
+              <Link
+                to="/login"
                 type="submit"
                 className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
               >
                 Sign In
-              </button>
+              </Link>
             </MenuItem>
           </form>
         </div>
