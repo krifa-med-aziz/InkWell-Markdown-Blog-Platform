@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import type { TPostListItem } from "../lib/type";
 import { getAuthorInitials } from "../utils/getAuthorInitials ";
-import { BookmarkPlus } from "lucide-react";
+import { Bookmark } from "lucide-react";
+import { useBookmarksContext } from "../lib/hooks";
 
 type PostListItemProps = {
   post: TPostListItem;
@@ -9,9 +10,21 @@ type PostListItemProps = {
 };
 
 export function PostListItem({ post, featured = false }: PostListItemProps) {
+  const { handleTogglebookmark, bookmarksPostsIds } = useBookmarksContext();
+
+  const getLinkPath = () => {
+    if (
+      location.pathname.includes("/posts/my-bookmarks") ||
+      location.pathname.includes("/posts")
+    ) {
+      return `${post.id}`;
+    }
+    return `posts/${post.id}`;
+  };
+
   if (featured) {
     return (
-      <Link to={`posts/${post.id}`}>
+      <Link to={getLinkPath()}>
         <article className="flex flex-col  bg-white rounded-xl min-h-[470px] shadow-sm  hover:shadow-md transition-shadow overflow-hidden">
           {post.image && (
             <div className="aspect-video overflow-hidden ">
@@ -53,14 +66,17 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
                 </div>
               </div>
               <div className="flex flex-col-reverse sm:flex-row gap-1 items-center text-slate-500 text-sm">
-                <BookmarkPlus
-                  className="h-4 w-4 cursor-pointer"
+                <Bookmark
+                  className={`h-4 w-4 cursor-pointer ${
+                    bookmarksPostsIds.includes(post.id) ? "fill-gray-500" : ""
+                  }`}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log("Bookmarked!");
+                    handleTogglebookmark(post.id);
                   }}
                 />
+
                 <div className="flex items-center">
                   <small> Last updated :</small>
                   <small> {post.lastUpdatedDate}</small>
@@ -73,7 +89,7 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
     );
   }
   return (
-    <Link to={`/posts/${post.id}`}>
+    <Link to={getLinkPath()}>
       <article className="border-b border-slate-200 py-8 px-8">
         <div className="flex flex-wrap gap-2 mb-3">
           {post.tags.slice(0, 3).map((tag) => (
@@ -115,12 +131,14 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
             </div>
           </div>
           <div className="flex flex-col-reverse sm:flex-row  gap-1 items-center text-slate-500">
-            <BookmarkPlus
-              className="h-5 w-5 cursor-pointer"
+            <Bookmark
+              className={`h-5 w-4 cursor-pointer ${
+                bookmarksPostsIds.includes(post.id) ? "fill-gray-500" : ""
+              }`}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log("Bookmarked!");
+                handleTogglebookmark(post.id);
               }}
             />
             <div className="flex items-center">

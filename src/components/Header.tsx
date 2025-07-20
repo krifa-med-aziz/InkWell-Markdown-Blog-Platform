@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function Header() {
   return (
-    <header className=" bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50  m-auto">
+    <header className=" bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50  m-auto shadow-sm">
       <div className="container mx-auto px-4 w-[95%] sm:w-[80%] m-auto">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
@@ -35,7 +35,12 @@ export function Header() {
             </nav>
           </div>
           <div className="hidden md:flex  items-center space-x-4">
-            <Bookmark className="h-5 w-5 cursor-pointer" />
+            <Link to="posts/my-bookmarks ">
+              <div className="flex items-center justify-center gap-2">
+                <Bookmark className="h-5 w-5 cursor-pointer" />
+                <p>Library</p>
+              </div>
+            </Link>
             <button className="cursor-pointer">
               <User className="h-5 w-5" />
             </button>

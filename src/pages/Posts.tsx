@@ -1,8 +1,9 @@
 import { PostListItem } from "../components/PostListItem";
 import ScrollableTabsButtonForce from "../components/ScrollableTabsButtonForce";
-import { seedData } from "../utils/data";
+import { useBlogPostsContext } from "../lib/hooks";
 
 export default function Posts() {
+  const { filteredBlogPosts } = useBlogPostsContext();
   return (
     <div className="min-h-screen py-8 max-w-4xl mx-auto flex flex-col items-center">
       <section className="w-full px-8">
@@ -32,7 +33,7 @@ export default function Posts() {
         <ScrollableTabsButtonForce />
       </section>
       <section className="[&>*:last-child_article]:border-b-0">
-        {seedData.map((post) => (
+        {filteredBlogPosts.map((post) => (
           <PostListItem key={post.id} post={post} />
         ))}
       </section>

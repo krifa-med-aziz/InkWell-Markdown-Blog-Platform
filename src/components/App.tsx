@@ -8,6 +8,8 @@ import BackToTopButton from "./BackToTopButton";
 import PostView from "../pages/PostView";
 import Posts from "../pages/Posts";
 import Layout from "../layout/Layout";
+import BookmarkedPosts from "../pages/BookmarkedPosts";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -20,9 +22,12 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="posts" element={<Posts />} />
           <Route path="posts/:id" element={<PostView />} />
+          <Route path="posts/my-bookmarks" element={<BookmarkedPosts />} />
+          <Route path="posts/my-bookmarks/:id" element={<PostView />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

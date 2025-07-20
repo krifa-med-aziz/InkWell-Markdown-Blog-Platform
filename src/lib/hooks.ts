@@ -1,0 +1,35 @@
+import { useContext, useEffect, useState } from "react";
+import { BlogPostsContext } from "../contexts/BlogPostsContext";
+import { BookmarksContext } from "../contexts/BookmarksContext";
+// -----------------------------------------------------
+export function useLocalStorage<T>(
+  key: string,
+  initialValue: T
+): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const [value, setValue] = useState(() =>
+    JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue))
+  );
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [value, key]);
+  return [value, setValue] as const;
+}
+// -----------------------------------------------------
+export function useBlogPostsContext() {
+  const context = useContext(BlogPostsContext);
+  if (!context)
+    throw new Error(
+      "useBlogPostsContext must be used within a BlogPostsContextProvider"
+    );
+  return context;
+}
+// -----------------------------------------------------
+export function useBookmarksContext() {
+  const context = useContext(BookmarksContext);
+  if (!context)
+    throw new Error(
+      "useBookmarksContext must be used within a BookmarksContextProvider"
+    );
+  return context;
+}
+// -----------------------------------------------------

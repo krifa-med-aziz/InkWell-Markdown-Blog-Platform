@@ -1,4 +1,4 @@
-export const seedData = [
+export const featuredPosts = [
   {
     id: "6d6f4f30-53ce-4a7c-8e58-42c1c13f8c5e",
     title: "Mastering useEffect in React",
@@ -42,7 +42,6 @@ useEffect(() => {
 }, []);
 \`\`\`
 
-![React Effect](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*o8WnXRYp3ghoz8PUXnlxYw.png)
 `,
   },
   {
@@ -99,9 +98,9 @@ Track changes in your code, collaborate with others, and roll back when necessar
 
 ## ⚙️ Common Commands
 
-- \`git init\` – initialize a repo  
-- \`git commit\` – save changes  
-- \`git push\` – upload to remote  
+- \`git init\` – initialize a repo
+- \`git commit\` – save changes
+- \`git push\` – upload to remote
 
 ## 🌍 GitHub Integration
 
@@ -219,3 +218,5 @@ Tailwind can speed up your development process and keep your CSS lean and mainta
 `,
   },
 ];
+
+// localStorage.setItem("posts", JSON.stringify(featuredPosts));

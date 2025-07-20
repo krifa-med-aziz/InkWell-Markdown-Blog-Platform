@@ -4,6 +4,7 @@ export type TPostListItem = {
   excerpt: string;
   author: string;
   date: string;
+  content: string;
   lastUpdatedDate: string;
   tags: string[];
   image?: string;

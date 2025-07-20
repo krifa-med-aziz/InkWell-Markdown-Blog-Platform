@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { seedData } from "../utils/data";
 import NotFound from "./NotFound";
 import {
   ArrowLeft,
@@ -9,12 +8,15 @@ import {
   Share2,
 } from "lucide-react";
 import { getAuthorInitials } from "../utils/getAuthorInitials ";
+import { useBlogPostsContext, useBookmarksContext } from "../lib/hooks";
 
 export default function PostView() {
+  const { blogPosts } = useBlogPostsContext();
+  const { handleTogglebookmark, bookmarksPostsIds } = useBookmarksContext();
   const { id } = useParams();
-  const post = seedData.filter((p) => {
-    if (p.id === id) return p;
-  });
+
+  const post = blogPosts.find((p) => p.id === id);
+
   if (!post) return <NotFound />;
 
   return (
@@ -30,7 +32,7 @@ export default function PostView() {
         </Link>
         <header className="mb-8">
           <div className="flex flex-wrap gap-2 mb-4">
-            {post[0].tags.map((tag) => (
+            {post.tags.map((tag) => (
               <p
                 key={tag}
                 className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
@@ -40,22 +42,22 @@ export default function PostView() {
             ))}
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-            {post[0].title}
+            {post.title}
           </h1>
 
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-4">
               <p className="border border-gray-300 rounded-3xl px-2 py-1">
-                {getAuthorInitials(post[0].author)}
+                {getAuthorInitials(post.author)}
               </p>
               <div>
-                <p className="font-semibold text-slate-900">{post[0].author}</p>
+                <p className="font-semibold text-slate-900">{post.author}</p>
                 <div className="flex items-center text-slate-500 text-sm space-x-4">
-                  <span>{post[0].date}</span>
+                  <span>{post.date}</span>
                   <span>•</span>
                   <div className="flex items-center gap-1">
                     <p>last updated :</p>
-                    {post[0].lastUpdatedDate}
+                    {post.lastUpdatedDate}
                   </div>
                 </div>
               </div>
@@ -65,11 +67,13 @@ export default function PostView() {
               <Heart className="w-5 h-5 cursor-pointer" />
               <MessageCircle className="w-5 h-5 cursor-pointer" />
               <Bookmark
-                className="w-5 h-5 cursor-pointer"
+                className={`h-5 w-5 cursor-pointer ${
+                  bookmarksPostsIds.includes(post.id) ? "fill-gray-800" : ""
+                }`}
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  console.log("Bookmarked!");
+                  handleTogglebookmark(post.id);
                 }}
               />
               <Share2 className="w-5 h-5 cursor-pointer" />
@@ -77,11 +81,11 @@ export default function PostView() {
           </div>
         </header>
 
-        {post[0].image && (
+        {post.image && (
           <div className="mb-8 rounded-xl overflow-hidden">
             <img
-              src={post[0].image || "/placeholder.svg"}
-              alt={post[0].title}
+              src={post.image || "/placeholder.svg"}
+              alt={post.title}
               width={800}
               height={400}
               className="w-full h-auto"
@@ -90,7 +94,7 @@ export default function PostView() {
         )}
 
         <div className="prose prose-lg prose-slate max-w-none">
-          {post[0].content.split("\n").map((paragraph, index) => {
+          {post.content.split("\n").map((paragraph, index) => {
             if (paragraph.startsWith("# ")) {
               return (
                 <h1 key={index} className="text-3xl font-bold mt-8 mb-4">
@@ -143,11 +147,11 @@ export default function PostView() {
         <div className="bg-slate-100 rounded-xl p-6">
           <div className="flex items-start space-x-4">
             <p className="text-lg border border-gray-300 rounded-3xl px-2 py-1">
-              {getAuthorInitials(post[0].author)}
+              {getAuthorInitials(post.author)}
             </p>
             <div className="flex-1">
               <h3 className="text-xl font-bold text-slate-900 mb-2">
-                {post[0].author}
+                {post.author}
               </h3>
               <p className="text-slate-600 mb-4">
                 Passionate developer and writer sharing insights about modern

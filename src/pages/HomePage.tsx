@@ -1,7 +1,7 @@
 import { ArrowRight, PenTool, Users, Zap } from "lucide-react";
 import { PostListItem } from "../components/PostListItem";
-import { seedData } from "../utils/data";
 import { Link } from "react-router-dom";
+import { featuredPosts } from "../utils/data";
 
 export default function HomePage() {
   return (
@@ -78,7 +78,7 @@ export default function HomePage() {
             Featured Posts
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {seedData.map((post) => (
+            {featuredPosts.map((post) => (
               <PostListItem key={post.id} post={post} featured />
             ))}
           </div>
