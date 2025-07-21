@@ -9,3 +9,4 @@ export type TPostListItem = {
   tags: string[];
   image?: string;
 };
+export type Tsorting = "default" | "recent";

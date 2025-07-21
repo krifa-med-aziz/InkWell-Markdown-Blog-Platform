@@ -54,7 +54,7 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
             </h3>
 
             <p className="text-slate-600 mb-4 line-clamp-3">{post.excerpt}</p>
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-between mt-auto">
+            <div className="flex flex-col sm:flex-row  md:gap-4 gap-2 sm:gap-0 items-center justify-between mt-auto">
               <div className="flex items-center space-x-3">
                 <p className="text-sm border border-gray-300 rounded-3xl px-2 py-1">
                   {getAuthorInitials(post.author)}
@@ -65,7 +65,7 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
                   <p className="text-xs text-slate-500">{post.date}</p>
                 </div>
               </div>
-              <div className="flex flex-col-reverse sm:flex-row gap-1 items-center text-slate-500 text-sm">
+              <div className="flex flex-col-reverse sm:flex-row  gap-1 items-center text-slate-500 text-sm">
                 <Bookmark
                   className={`h-4 w-4 cursor-pointer ${
                     bookmarksPostsIds.includes(post.id) ? "fill-gray-500" : ""
@@ -77,7 +77,7 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
                   }}
                 />
 
-                <div className="flex items-center">
+                <div className="flex items-center md:flex-col ">
                   <small> Last updated :</small>
                   <small> {post.lastUpdatedDate}</small>
                 </div>

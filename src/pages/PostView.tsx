@@ -9,6 +9,9 @@ import {
 } from "lucide-react";
 import { getAuthorInitials } from "../utils/getAuthorInitials ";
 import { useBlogPostsContext, useBookmarksContext } from "../lib/hooks";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 export default function PostView() {
   const { blogPosts } = useBlogPostsContext();
@@ -93,55 +96,39 @@ export default function PostView() {
           </div>
         )}
 
-        <div className="prose prose-lg prose-slate max-w-none">
-          {post.content.split("\n").map((paragraph, index) => {
-            if (paragraph.startsWith("# ")) {
-              return (
-                <h1 key={index} className="text-3xl font-bold mt-8 mb-4">
-                  {paragraph.slice(2)}
-                </h1>
-              );
-            }
-            if (paragraph.startsWith("## ")) {
-              return (
-                <h2 key={index} className="text-2xl font-bold mt-6 mb-3">
-                  {paragraph.slice(3)}
-                </h2>
-              );
-            }
-            if (paragraph.startsWith("### ")) {
-              return (
-                <h3 key={index} className="text-xl font-bold mt-4 mb-2">
-                  {paragraph.slice(4)}
-                </h3>
-              );
-            }
-            if (paragraph.startsWith("- ")) {
-              return (
-                <li key={index} className="ml-4">
-                  {paragraph.slice(2)}
-                </li>
-              );
-            }
-            if (paragraph.startsWith("```")) {
-              return (
+        <div className="prose prose-lg prose-slate max-w-none  mb-8 ">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+            components={{
+              h1: ({ ...props }) => (
+                <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />
+              ),
+              h2: ({ ...props }) => (
+                <h2 className="text-2xl font-bold mt-6 mb-3" {...props} />
+              ),
+              h3: ({ ...props }) => (
+                <h3 className="text-xl font-bold mt-4 mb-2" {...props} />
+              ),
+              li: ({ ...props }) => (
+                <li className="ml-4 list-disc" {...props} />
+              ),
+              pre: ({ ...props }) => (
                 <pre
-                  key={index}
                   className="bg-slate-100 p-4 rounded-lg overflow-x-auto my-4"
-                >
-                  <code>{paragraph}</code>
-                </pre>
-              );
-            }
-            if (paragraph.trim() === "") {
-              return <br key={index} />;
-            }
-            return (
-              <p key={index} className="mb-4 leading-relaxed">
-                {paragraph}
-              </p>
-            );
-          })}
+                  {...props}
+                />
+              ),
+              code: ({ ...props }) => (
+                <code
+                  className="bg-gray-100 rounded px-1 py-0.5 text-sm"
+                  {...props}
+                />
+              ),
+            }}
+          >
+            {post.content}
+          </ReactMarkdown>
         </div>
 
         <div className="bg-slate-100 rounded-xl p-6">

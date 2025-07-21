@@ -7,7 +7,7 @@ import ScrollToTop from "./ScrollToTop";
 import BackToTopButton from "./BackToTopButton";
 import PostView from "../pages/PostView";
 import Posts from "../pages/Posts";
-import Layout from "../layout/Layout";
+import HomeLayout from "../layout/HomeLayout";
 import BookmarkedPosts from "../pages/BookmarkedPosts";
 import { ToastContainer } from "react-toastify";
 
@@ -17,7 +17,7 @@ function App() {
       <ScrollToTop />
       <BackToTopButton />
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<HomeLayout />}>
           <Route index element={<HomePage />} />
           <Route path="about" element={<About />} />
           <Route path="posts" element={<Posts />} />

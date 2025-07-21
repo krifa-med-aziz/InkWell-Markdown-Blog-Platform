@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { BlogPostsContext } from "../contexts/BlogPostsContext";
 import { BookmarksContext } from "../contexts/BookmarksContext";
+import { SearchTextContext } from "../pages/SearchTextContext";
 // -----------------------------------------------------
 export function useLocalStorage<T>(
   key: string,
@@ -29,6 +30,15 @@ export function useBookmarksContext() {
   if (!context)
     throw new Error(
       "useBookmarksContext must be used within a BookmarksContextProvider"
+    );
+  return context;
+}
+// -----------------------------------------------------
+export function useSearchTextContext() {
+  const context = useContext(SearchTextContext);
+  if (!context)
+    throw new Error(
+      "useSearchTextContext must be used within a SearchTextContextProvider"
     );
   return context;
 }

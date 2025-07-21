@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./components/App.tsx";
 import BlogPostsContextProvider from "./contexts/BlogPostsContextProvider.tsx";
 import BookmarksContextProvider from "./contexts/BookmarksContextProvider.tsx";
+import SearchTextContextProvider from "./pages/SearchTextContextProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BlogPostsContextProvider>
-      <BookmarksContextProvider>
-        <App />
-      </BookmarksContextProvider>
-    </BlogPostsContextProvider>
+    <SearchTextContextProvider>
+      <BlogPostsContextProvider>
+        <BookmarksContextProvider>
+          <App />
+        </BookmarksContextProvider>
+      </BlogPostsContextProvider>
+    </SearchTextContextProvider>
   </StrictMode>
 );
