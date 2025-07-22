@@ -1,5 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import About from "../pages/About";
@@ -10,16 +9,18 @@ import Posts from "../pages/Posts";
 import HomeLayout from "../layout/HomeLayout";
 import BookmarkedPosts from "../pages/BookmarkedPosts";
 import { ToastContainer } from "react-toastify";
+import PostForm from "../pages/PostForm";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <BackToTopButton />
       <Routes>
         <Route path="/" element={<HomeLayout />}>
           <Route index element={<HomePage />} />
           <Route path="about" element={<About />} />
+          <Route path="new-post" element={<PostForm />} />
           <Route path="posts" element={<Posts />} />
           <Route path="posts/:id" element={<PostView />} />
           <Route path="posts/my-bookmarks" element={<BookmarkedPosts />} />
@@ -28,7 +29,7 @@ function App() {
         </Route>
       </Routes>
       <ToastContainer />
-    </BrowserRouter>
+    </>
   );
 }
 

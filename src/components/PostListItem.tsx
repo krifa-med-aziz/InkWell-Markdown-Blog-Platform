@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import type { TPostListItem } from "../lib/type";
 import { getAuthorInitials } from "../utils/getAuthorInitials ";
-import { Bookmark } from "lucide-react";
-import { useBookmarksContext } from "../lib/hooks";
+import { Bookmark, Pencil, X } from "lucide-react";
+import { useBlogPostsContext, useBookmarksContext } from "../lib/hooks";
 
 type PostListItemProps = {
   post: TPostListItem;
@@ -11,6 +11,7 @@ type PostListItemProps = {
 
 export function PostListItem({ post, featured = false }: PostListItemProps) {
   const { handleTogglebookmark, bookmarksPostsIds } = useBookmarksContext();
+  const { deletePost } = useBlogPostsContext();
 
   const getLinkPath = () => {
     if (
@@ -38,8 +39,8 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
             </div>
           )}
           <div className="p-6 flex flex-col min-h-[300px] ">
-            <div className="flex flex-wrap gap-2 mb-3">
-              {post.tags.slice(0, 2).map((tag) => (
+            <div className="flex gap-2 flex-wrap">
+              {post.tags.map((tag) => (
                 <p
                   key={tag}
                   className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
@@ -91,15 +92,26 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
   return (
     <Link to={getLinkPath()}>
       <article className="border-b border-slate-200 py-8 px-8">
-        <div className="flex flex-wrap gap-2 mb-3">
-          {post.tags.slice(0, 3).map((tag) => (
-            <p
-              key={tag}
-              className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
-            >
-              {tag}
-            </p>
-          ))}
+        <div className="flex flex-wrap-reverse items-center justify-between gap-2 mb-4">
+          <div className="flex gap-2">
+            {post.tags.map((tag) => (
+              <p
+                key={tag}
+                className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
+              >
+                {tag}
+              </p>
+            ))}
+          </div>
+          <div className="flex ml-auto gap-2">
+            {post.canEdited && <Pencil className="h-5 w-5" />}
+            {post.canDeleted && (
+              <X
+                onClick={(e) => deletePost(e, post.id)}
+                className="text-red-600 h-6 w-6"
+              />
+            )}
+          </div>
         </div>
         <div className="flex flex-col-reverse md:flex-row items-center justify-center">
           <div>

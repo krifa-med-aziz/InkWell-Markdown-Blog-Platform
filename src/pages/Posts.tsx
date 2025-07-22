@@ -1,49 +1,59 @@
-import { useState } from "react";
 import { PostListItem } from "../components/PostListItem";
 import ScrollableTabsButtonForce from "../components/ScrollableTabsButtonForce";
 import { useBlogPostsContext, useSearchTextContext } from "../lib/hooks";
-import { ArrowDownNarrowWide } from "lucide-react";
+import { ArrowDownNarrowWide, X } from "lucide-react";
 
 export default function Posts() {
-  const { filteredBlogPosts, searchPosts, setSortBy, sortBy, getSortedPosts } =
-    useBlogPostsContext();
-  const { searchText, OnChangeSearchText } = useSearchTextContext();
-  const [showSearchPosts, setShowSearchPosts] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const {
+    filteredBlogPosts,
+    searchPosts,
+    getSortedPosts,
+    handleQueryParamChange,
+    sortBy,
+    searchText,
+  } = useBlogPostsContext();
+  const { searchText: inputSearchText, OnChangeSearchText } =
+    useSearchTextContext();
+
+  // Show search results only when there's a search in the URL (after submission)
+  const showSearchPosts = !!searchText;
+  const searchQuery = searchText || "";
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchText.trim()) {
-      setSearchQuery(searchText);
-      setShowSearchPosts(true);
+    if (inputSearchText?.trim()) {
+      handleQueryParamChange("text", inputSearchText);
     }
   };
 
   const handleSearchChange = (value: string) => {
     OnChangeSearchText(value);
     if (value.trim() === "") {
-      setShowSearchPosts(false);
-      setSearchQuery("");
+      handleQueryParamChange("text", null);
     }
   };
 
   const handleClearSearch = () => {
     OnChangeSearchText("");
-    setShowSearchPosts(false);
-    setSearchQuery("");
+    handleQueryParamChange("text", null);
+  };
+
+  const clearSorting = () => {
+    handleQueryParamChange("sort", null);
   };
 
   let posts = !showSearchPosts ? filteredBlogPosts : searchPosts;
-  if (sortBy === "recent") posts = getSortedPosts(posts, sortBy);
+  if (sortBy === "recent" || sortBy === "oldest")
+    posts = getSortedPosts(posts, sortBy);
 
   return (
     <div className="min-h-screen py-8 max-w-4xl mx-auto flex flex-col items-center">
       <section className="w-full px-8  ">
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-5">
+        <div className="flex flex-col gap-4 sm:flex-row items-center justify-between mb-5">
           <form onSubmit={handleSubmit} className="relative w-full max-w-md">
             <input
               type="text"
-              value={searchText}
+              value={inputSearchText || ""}
               onChange={(e) => handleSearchChange(e.target.value)}
               placeholder="Search..."
               className="w-full pl-10 pr-10  py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition"
@@ -64,7 +74,7 @@ export default function Posts() {
                 d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1116.65 2a7.5 7.5 0 010 14.5z"
               />
             </svg>
-            {searchText && (
+            {(inputSearchText || searchText) && (
               <button
                 type="button"
                 onClick={handleClearSearch}
@@ -91,21 +101,22 @@ export default function Posts() {
           <div className="flex items-center gap-3">
             <ArrowDownNarrowWide className="w-4 h-4" />
             <button
-              onClick={() => setSortBy("default")}
+              onClick={() => handleQueryParamChange("sort", "oldest")}
               className={`cursor-pointer border rounded-[5px] px-2 py-1 ${
-                sortBy === "default" ? "bg-blue-600 border-none text-white" : ""
+                sortBy === "oldest" ? "bg-blue-600 border-none text-white" : ""
               }`}
             >
-              Default
+              Oldest
             </button>
             <button
-              onClick={() => setSortBy("recent")}
+              onClick={() => handleQueryParamChange("sort", "recent")}
               className={`cursor-pointer border rounded-[5px] px-2 py-1 ${
                 sortBy === "recent" ? "bg-blue-600 border-none text-white" : ""
               }`}
             >
               Recent
             </button>
+            {sortBy && <X className="cursor-pointer" onClick={clearSorting} />}
           </div>
         </div>
         {!showSearchPosts ? (

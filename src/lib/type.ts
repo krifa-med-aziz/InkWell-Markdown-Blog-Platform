@@ -8,5 +8,7 @@ export type TPostListItem = {
   lastUpdatedDate: string;
   tags: string[];
   image?: string;
+  canDeleted?: boolean;
+  canEdited?: boolean;
 };
-export type Tsorting = "default" | "recent";
+export type Tsorting = "oldest" | "recent" | "";

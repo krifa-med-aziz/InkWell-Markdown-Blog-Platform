@@ -219,4 +219,15 @@ Tailwind can speed up your development process and keep your CSS lean and mainta
   },
 ];
 
+// Function to initialize localStorage with featured posts if empty
+export const initializePostsIfEmpty = () => {
+  const existingPosts = localStorage.getItem("posts");
+  if (!existingPosts) {
+    localStorage.setItem("posts", JSON.stringify(featuredPosts));
+    return featuredPosts;
+  }
+  return JSON.parse(existingPosts);
+};
+
+// Uncomment this line to manually populate localStorage (for development)
 // localStorage.setItem("posts", JSON.stringify(featuredPosts));

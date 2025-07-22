@@ -6,7 +6,7 @@ import { featuredPosts } from "../utils/data";
 export default function HomePage() {
   return (
     <div className="min-h-screen">
-      <section className="bg-gradient-to-br from-slate-100 to-slate-200 py-20 ">
+      <section className="bg-gradient-to-br from-slate-100 to-slate-200 py-20">
         <div className="container mx-auto px-4 w-[95%] sm:w-[80%] m-auto">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
@@ -28,7 +28,7 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </button>
               <Link
-                to="posts"
+                to="new-post"
                 className="text-lg px-8 py-2 bg-transparent  flex justify-center items-center border border-gray-300 cursor-pointer rounded-xl hover:bg-gray-200"
               >
                 Start Writing

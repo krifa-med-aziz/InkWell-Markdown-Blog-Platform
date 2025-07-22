@@ -5,16 +5,19 @@ import {
   Bookmark,
   Heart,
   MessageCircle,
+  Pencil,
   Share2,
+  X,
 } from "lucide-react";
 import { getAuthorInitials } from "../utils/getAuthorInitials ";
 import { useBlogPostsContext, useBookmarksContext } from "../lib/hooks";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import rehypeHighlight from "rehype-highlight";
 
 export default function PostView() {
-  const { blogPosts } = useBlogPostsContext();
+  const { blogPosts, deletePost } = useBlogPostsContext();
   const { handleTogglebookmark, bookmarksPostsIds } = useBookmarksContext();
   const { id } = useParams();
 
@@ -34,15 +37,26 @@ export default function PostView() {
           Back
         </Link>
         <header className="mb-8">
-          <div className="flex flex-wrap gap-2 mb-4">
-            {post.tags.map((tag) => (
-              <p
-                key={tag}
-                className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
-              >
-                {tag}
-              </p>
-            ))}
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div className="flex gap-2">
+              {post.tags.map((tag) => (
+                <p
+                  key={tag}
+                  className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
+                >
+                  {tag}
+                </p>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              {post.canEdited && <Pencil />}
+              {post.canDeleted && (
+                <X
+                  onClick={(e) => deletePost(e, post.id)}
+                  className="text-red-600 cursor-pointer"
+                />
+              )}
+            </div>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
             {post.title}
@@ -99,7 +113,7 @@ export default function PostView() {
         <div className="prose prose-lg prose-slate max-w-none  mb-8 ">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
+            rehypePlugins={[rehypeRaw, rehypeHighlight]}
             components={{
               h1: ({ ...props }) => (
                 <h1 className="text-3xl font-bold mt-8 mb-4" {...props} />

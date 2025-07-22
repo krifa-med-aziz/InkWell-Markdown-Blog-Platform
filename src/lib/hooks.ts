@@ -1,15 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { BlogPostsContext } from "../contexts/BlogPostsContext";
 import { BookmarksContext } from "../contexts/BookmarksContext";
-import { SearchTextContext } from "../pages/SearchTextContext";
+import { SearchTextContext } from "../contexts/SearchTextContext";
+import { initializePostsIfEmpty } from "../utils/data";
 // -----------------------------------------------------
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
-  const [value, setValue] = useState(() =>
-    JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue))
-  );
+  const [value, setValue] = useState(() => {
+    if (key === "posts") {
+      return initializePostsIfEmpty();
+    }
+    return JSON.parse(
+      localStorage.getItem(key) || JSON.stringify(initialValue)
+    );
+  });
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [value, key]);

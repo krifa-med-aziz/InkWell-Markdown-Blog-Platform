@@ -6,26 +6,31 @@ import { useBlogPostsContext } from "../lib/hooks";
 
 export default function ScrollableTabsButtonForce() {
   const [value, setValue] = React.useState(0);
-  const { blogPosts, setFilterby } = useBlogPostsContext();
+  const { blogPosts, handleQueryParamChange } = useBlogPostsContext();
 
-  const tagsArr: string[] = [];
-  blogPosts.forEach((post) => {
-    if (post.tags) {
-      post.tags.forEach((tag) => tagsArr.push(tag));
-    }
-  });
-  const allTags = Array.from(new Set(tagsArr));
+  const allTags = React.useMemo(() => {
+    const tagsArr: string[] = [];
+    blogPosts.forEach((post) => {
+      if (post.tags) {
+        post.tags.forEach((tag) => tagsArr.push(tag));
+      }
+    });
+    return Array.from(new Set(tagsArr));
+  }, [blogPosts]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
   React.useEffect(() => {
     if (value === 0) {
-      setFilterby("");
+      handleQueryParamChange("type", null);
     } else {
-      setFilterby(allTags[value - 1]);
+      const selectedTag = allTags[value - 1];
+      if (selectedTag) {
+        handleQueryParamChange("type", selectedTag);
+      }
     }
-  }, [value, allTags, setFilterby]);
+  }, [value, handleQueryParamChange, allTags]);
   return (
     <Box
       sx={{

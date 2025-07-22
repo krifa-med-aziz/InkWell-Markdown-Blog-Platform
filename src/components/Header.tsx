@@ -44,10 +44,13 @@ export function Header() {
             <button className="cursor-pointer">
               <User className="h-5 w-5" />
             </button>
-            <button className="cursor-pointer flex items-center justify-center gap-2 bg-black text-white rounded-[5px] p-2">
+            <Link
+              to="new-post"
+              className="cursor-pointer flex items-center justify-center gap-2 bg-black text-white rounded-[5px] p-2"
+            >
               <PenTool className=" h-4 w-4" />
               Write
-            </button>
+            </Link>
           </div>
           <div className="md:hidden">
             <DropDownMenu />

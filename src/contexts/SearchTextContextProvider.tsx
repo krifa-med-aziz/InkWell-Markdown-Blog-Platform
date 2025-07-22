@@ -7,9 +7,11 @@ export default function SearchTextContextProvider({
   children: React.ReactNode;
 }) {
   const [searchText, setSearchText] = useState("");
+
   const OnChangeSearchText = (newSearchText: string) => {
     setSearchText(newSearchText);
   };
+
   return (
     <SearchTextContext.Provider value={{ searchText, OnChangeSearchText }}>
       {children}
