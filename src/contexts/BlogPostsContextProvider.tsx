@@ -2,8 +2,8 @@ import type React from "react";
 import { BlogPostsContext } from "./BlogPostsContext";
 import { useLocalStorage } from "../lib/hooks";
 import type { Tsorting, TPostListItem } from "../lib/type";
-import { useMemo, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useMemo, useCallback, useState, useEffect } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function BlogPostsContextProvider({
@@ -20,6 +20,16 @@ export default function BlogPostsContextProvider({
     "posts",
     []
   );
+  const navigate = useNavigate();
+  const { pathname, search } = useLocation();
+  const [fromSearch, setFromSearch] = useState("");
+
+  useEffect(() => {
+    // Only update fromSearch when we're on the posts page with search params
+    if (pathname === "/posts" && search) {
+      setFromSearch(search);
+    }
+  }, [pathname, search]);
 
   const searchPosts = useMemo(() => {
     if (!lowerQuery) return blogPosts;
@@ -30,6 +40,12 @@ export default function BlogPostsContextProvider({
         post.tags.some((tag) => tag.toLocaleLowerCase().includes(lowerQuery))
     );
   }, [lowerQuery, blogPosts]);
+
+  const getPostById = (id: string | undefined) => {
+    if (!id) return;
+    const post = [...blogPosts].find((p) => p.id === id);
+    return post;
+  };
 
   function getSortedPosts(posts: TPostListItem[], sort: Tsorting) {
     if (sort === "recent") {
@@ -77,10 +93,22 @@ export default function BlogPostsContextProvider({
       "Are you sure you want to delete this post?"
     );
     if (confirmed) {
-      toast.info("Post deleted");
+      toast.info("Post deleted!", {
+        autoClose: 1000,
+      });
       const newBlogPosts = [...blogPosts].filter((p) => p.id !== id);
       setBlogPosts(newBlogPosts);
+      navigate("/posts");
     }
+  };
+
+  const editPost = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    id: string
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(`edit-post/${id}`);
   };
 
   return (
@@ -95,6 +123,9 @@ export default function BlogPostsContextProvider({
         deletePost,
         handleQueryParamChange,
         searchText,
+        editPost,
+        getPostById,
+        fromSearch,
       }}
     >
       {children}

@@ -15,7 +15,6 @@ export default function Posts() {
   const { searchText: inputSearchText, OnChangeSearchText } =
     useSearchTextContext();
 
-  // Show search results only when there's a search in the URL (after submission)
   const showSearchPosts = !!searchText;
   const searchQuery = searchText || "";
 

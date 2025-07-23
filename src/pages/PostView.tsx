@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import NotFound from "./NotFound";
 import {
   ArrowLeft,
@@ -17,25 +17,30 @@ import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 
 export default function PostView() {
-  const { blogPosts, deletePost } = useBlogPostsContext();
+  const { deletePost, editPost, getPostById, fromSearch } =
+    useBlogPostsContext();
   const { handleTogglebookmark, bookmarksPostsIds } = useBookmarksContext();
   const { id } = useParams();
+  const navigate = useNavigate();
+  const post = getPostById(id);
 
-  const post = blogPosts.find((p) => p.id === id);
+  const handleBackClick = () => {
+    const backPath = fromSearch ? `/posts${fromSearch}` : "/posts";
+    navigate(backPath);
+  };
 
   if (!post) return <NotFound />;
 
   return (
     <div className="min-h-screen bg-white">
       <article className="max-w-4xl mx-auto px-4 py-8">
-        <Link
-          to=".."
-          relative="path"
-          className="flex gap-1 mb-8 cursor-pointer"
+        <button
+          onClick={handleBackClick}
+          className="flex gap-1 mb-8 cursor-pointer hover:text-blue-600 transition-colors"
         >
           <ArrowLeft />
           Back
-        </Link>
+        </button>
         <header className="mb-8">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div className="flex gap-2">
@@ -49,11 +54,16 @@ export default function PostView() {
               ))}
             </div>
             <div className="flex gap-2">
-              {post.canEdited && <Pencil />}
+              {post.canEdited && (
+                <Pencil
+                  className="cursor-pointer h-5 w-5"
+                  onClick={(e) => editPost(e, post.id)}
+                />
+              )}
               {post.canDeleted && (
                 <X
                   onClick={(e) => deletePost(e, post.id)}
-                  className="text-red-600 cursor-pointer"
+                  className="text-red-600 cursor-pointer hover:text-white hover:bg-red-600 rounded-xl "
                 />
               )}
             </div>

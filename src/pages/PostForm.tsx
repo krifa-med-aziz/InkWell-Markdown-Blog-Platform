@@ -1,24 +1,57 @@
 import { useState } from "react";
 import { useBlogPostsContext } from "../lib/hooks";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function PostForm() {
-  const [title, setTitle] = useState("");
-  const [excerpt, setExcerpt] = useState("");
-  const [author, setAuthor] = useState("");
-  const [tags, setTags] = useState("");
-  const [image, setImage] = useState("");
-  const [content, setContent] = useState("");
+  const { blogPosts, setBlogPosts, getPostById } = useBlogPostsContext();
+  const { id } = useParams();
+  const post = getPostById(id);
   const navigate = useNavigate();
+
+  // to test if we add a new post or edit existing post
+  const { pathname } = useLocation();
+  const edit = pathname.includes("edit-post");
+
+  const [title, setTitle] = useState(post?.title || "");
+  const [excerpt, setExcerpt] = useState(post?.excerpt || "");
+  const [author, setAuthor] = useState(post?.author || "");
+  const [tags, setTags] = useState(post?.tags?.join(",") || "");
+  const [image, setImage] = useState(post?.image || "");
+  const [content, setContent] = useState(post?.content || "");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setBlogPosts([...blogPosts, newPost]);
-    toast.success("Post Published Successfully", {
-      autoClose: 1000,
-    });
+    const updatedPost = {
+      id: edit && post?.id ? post?.id : crypto.randomUUID(),
+      title: title,
+      excerpt,
+      author,
+      tags: tags.split(",").map((tag) => tag.trim()),
+      image,
+      date:
+        edit && post?.date
+          ? post?.date
+          : new Date().toISOString().split("T")[0],
+      lastUpdatedDate: new Date().toISOString().split("T")[0],
+      content,
+      canDeleted: true,
+      canEdited: true,
+    };
+
+    const updatedPosts = edit
+      ? blogPosts.map((p) => (p.id === post?.id ? updatedPost : p))
+      : [...blogPosts, updatedPost];
+
+    toast.success(
+      `${edit ? "Post Edited Successfully" : "Post Published Successfully"}`,
+      {
+        autoClose: 1000,
+      }
+    );
     resetForm();
-    navigate(`/posts/${newPost.id}`);
+    navigate(`/posts/${updatedPost.id}`);
+    setBlogPosts(updatedPosts);
   };
 
   const resetForm = () => {
@@ -30,30 +63,18 @@ export default function PostForm() {
     setContent("");
   };
 
-  const newPost = {
-    id: crypto.randomUUID(),
-    title: title,
-    excerpt,
-    author,
-    tags: tags.split(",").map((tag) => tag.trim()),
-    image,
-    date: new Date().toISOString().split("T")[0],
-    lastUpdatedDate: new Date().toISOString().split("T")[0],
-    content,
-    canDeleted: true,
-    canEdited: true,
-  };
-
-  const { blogPosts, setBlogPosts } = useBlogPostsContext();
-
   return (
     <div className="min-h-screen">
       <section className="bg-gradient-to-br from-slate-100 to-slate-200 py-20">
         <div className="container max-w-4xl mx-auto px-4  m-auto">
           <div className="w-[95%] sm:w-[80%] mx-auto text-center">
-            <h1 className="text-5xl font-bold mb-6">Create a New Blog Post</h1>
+            <h1 className="text-5xl font-bold mb-6">
+              {!edit ? "Create a New Blog Post" : "Edit Blog Post"}
+            </h1>
             <p className="text-xl text-gray-500 mb-6">
-              Let's share your knowledge with the world.
+              {!edit
+                ? "Let's share your knowledge with the world."
+                : "Update your post and keep your readers informed."}
             </p>
           </div>
         </div>
@@ -189,11 +210,18 @@ export default function PostForm() {
             type="submit"
             className="bg-blue-600 text-white px-6 py-2 cursor-pointer rounded font-semibold hover:bg-blue-700 transition"
           >
-            Publish Post
+            {!edit ? "Publish Post" : "Save"}
           </button>
           <button
             type="reset"
-            onClick={resetForm}
+            onClick={() => {
+              if (edit) {
+                navigate(`/posts/${id}`);
+              } else {
+                resetForm();
+                navigate("/posts");
+              }
+            }}
             className="bg-red-600  text-white px-6 py-2 cursor-pointer rounded font-semibold hover:bg-red-700 transition"
           >
             Cancel

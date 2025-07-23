@@ -21,6 +21,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="about" element={<About />} />
           <Route path="new-post" element={<PostForm />} />
+          <Route path="edit-post/:id" element={<PostForm />} />
           <Route path="posts" element={<Posts />} />
           <Route path="posts/:id" element={<PostView />} />
           <Route path="posts/my-bookmarks" element={<BookmarkedPosts />} />

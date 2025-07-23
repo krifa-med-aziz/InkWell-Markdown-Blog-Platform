@@ -11,7 +11,7 @@ type PostListItemProps = {
 
 export function PostListItem({ post, featured = false }: PostListItemProps) {
   const { handleTogglebookmark, bookmarksPostsIds } = useBookmarksContext();
-  const { deletePost } = useBlogPostsContext();
+  const { deletePost, editPost } = useBlogPostsContext();
 
   const getLinkPath = () => {
     if (
@@ -104,7 +104,12 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
             ))}
           </div>
           <div className="flex ml-auto gap-2">
-            {post.canEdited && <Pencil className="h-5 w-5" />}
+            {post.canEdited && (
+              <Pencil
+                onClick={(e) => editPost(e, post.id)}
+                className="h-5 w-5"
+              />
+            )}
             {post.canDeleted && (
               <X
                 onClick={(e) => deletePost(e, post.id)}
