@@ -84,7 +84,7 @@ export default function BlogPostsContextProvider({
   }, [typeFilter, blogPosts]);
 
   const deletePost = (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string
   ) => {
     e.preventDefault();
@@ -103,7 +103,7 @@ export default function BlogPostsContextProvider({
   };
 
   const editPost = (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string
   ) => {
     e.preventDefault();

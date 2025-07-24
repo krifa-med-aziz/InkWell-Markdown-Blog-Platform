@@ -92,7 +92,7 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
   return (
     <Link to={getLinkPath()}>
       <article className="border-b border-slate-200 py-8 px-8">
-        <div className="flex flex-wrap-reverse items-center justify-between gap-2 mb-4">
+        <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 mb-4">
           <div className="flex gap-2">
             {post.tags.map((tag) => (
               <p
@@ -103,22 +103,28 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
               </p>
             ))}
           </div>
-          <div className="flex ml-auto gap-2">
+          <div className="flex  ml-auto gap-2">
             {post.canEdited && (
-              <Pencil
+              <button
+                className="cursor-pointer flex items-center gap-1 border border-gray-400 p-1 rounded-sm"
                 onClick={(e) => editPost(e, post.id)}
-                className="h-5 w-5"
-              />
+              >
+                <Pencil className="h-4 w-4" />
+                Edit Post
+              </button>
             )}
             {post.canDeleted && (
-              <X
+              <button
+                className="cursor-pointer flex items-center gap-1 border p-1 rounded-sm text-white bg-red-600"
                 onClick={(e) => deletePost(e, post.id)}
-                className="text-red-600 h-6 w-6"
-              />
+              >
+                <X className="h-5 w-5 text-white hover:text-white" />
+                Delete
+              </button>
             )}
           </div>
         </div>
-        <div className="flex flex-col-reverse md:flex-row items-center justify-center">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8">
           <div>
             <h2 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
               {post.title}
@@ -128,9 +134,9 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
             </p>
           </div>
           {post.image && (
-            <div className="rounded-xl overflow-hidden my-4">
+            <div className="rounded-xl overflow-hidden my-4 max-w-[450px]">
               <img
-                className="aspect-3/2 w-[450px]"
+                className="aspect-3/2 w-[450px] "
                 src={post.image}
                 alt={post.title}
               />

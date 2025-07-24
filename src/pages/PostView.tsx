@@ -55,16 +55,22 @@ export default function PostView() {
             </div>
             <div className="flex gap-2">
               {post.canEdited && (
-                <Pencil
-                  className="cursor-pointer h-5 w-5"
+                <button
+                  className="cursor-pointer flex items-center gap-1 border border-gray-400 p-1 rounded-sm"
                   onClick={(e) => editPost(e, post.id)}
-                />
+                >
+                  <Pencil className="h-4 w-4" />
+                  Edit Post
+                </button>
               )}
               {post.canDeleted && (
-                <X
+                <button
+                  className="cursor-pointer flex items-center gap-1 border p-1 rounded-sm text-white bg-red-600"
                   onClick={(e) => deletePost(e, post.id)}
-                  className="text-red-600 cursor-pointer hover:text-white hover:bg-red-600 rounded-xl "
-                />
+                >
+                  <X className="h-5 w-5 text-white hover:text-white" />
+                  Delete
+                </button>
               )}
             </div>
           </div>

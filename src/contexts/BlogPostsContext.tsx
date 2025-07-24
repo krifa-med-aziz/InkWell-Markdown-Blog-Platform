@@ -10,12 +10,12 @@ type BlogPostsContextType = {
   searchPosts: TPostListItem[];
   fromSearch: string;
   editPost: (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string
   ) => void;
   getSortedPosts: (posts: TPostListItem[], sort: Tsorting) => TPostListItem[];
   deletePost: (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: string
   ) => void;
   handleQueryParamChange: (param: string, value: string | null) => void;
