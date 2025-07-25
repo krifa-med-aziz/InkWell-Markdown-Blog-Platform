@@ -6,17 +6,20 @@ import BlogPostsContextProvider from "./contexts/BlogPostsContextProvider.tsx";
 import BookmarksContextProvider from "./contexts/BookmarksContextProvider.tsx";
 import SearchTextContextProvider from "./contexts/SearchTextContextProvider.tsx";
 import { BrowserRouter } from "react-router-dom";
+import UserContextProvider from "./contexts/UserContextProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <BlogPostsContextProvider>
-        <SearchTextContextProvider>
-          <BookmarksContextProvider>
-            <App />
-          </BookmarksContextProvider>
-        </SearchTextContextProvider>
-      </BlogPostsContextProvider>
+      <UserContextProvider>
+        <BlogPostsContextProvider>
+          <SearchTextContextProvider>
+            <BookmarksContextProvider>
+              <App />
+            </BookmarksContextProvider>
+          </SearchTextContextProvider>
+        </BlogPostsContextProvider>
+      </UserContextProvider>
     </BrowserRouter>
   </StrictMode>
 );

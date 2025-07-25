@@ -1,9 +1,28 @@
-import { Link } from "react-router-dom";
-import { useBookmarksContext } from "../lib/hooks";
+import { Link, useNavigate } from "react-router-dom";
+import { useBookmarksContext, useUserContext } from "../lib/hooks";
 import { PostListItem } from "../components/PostListItem";
+import { useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 
 export default function BookmarkedPosts() {
   const { bookmakredPosts } = useBookmarksContext();
+  const { LoggedIn } = useUserContext();
+  const hasShownWarning = useRef(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!LoggedIn && !hasShownWarning.current) {
+      hasShownWarning.current = true;
+      toast.warn("You must be logged in to create or edit a post.", {
+        autoClose: 2000,
+      });
+      navigate("/login");
+    }
+  }, [LoggedIn, navigate]);
+
+  if (!LoggedIn) {
+    return null;
+  }
   return (
     <>
       <section className="bg-gradient-to-br from-slate-100 to-slate-200 py-20">

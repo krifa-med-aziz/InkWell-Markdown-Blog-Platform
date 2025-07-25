@@ -12,3 +12,15 @@ export type TPostListItem = {
   canEdited?: boolean;
 };
 export type Tsorting = "oldest" | "recent" | "";
+
+export type TUser = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  createdAt: string;
+};
+
+export type TFormData = TUser & {
+  confirmPassword: string;
+};

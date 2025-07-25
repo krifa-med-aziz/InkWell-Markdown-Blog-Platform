@@ -3,6 +3,7 @@ import { BlogPostsContext } from "../contexts/BlogPostsContext";
 import { BookmarksContext } from "../contexts/BookmarksContext";
 import { SearchTextContext } from "../contexts/SearchTextContext";
 import { initializePostsIfEmpty } from "../utils/data";
+import { UserContext } from "../contexts/UserContext";
 // -----------------------------------------------------
 export function useLocalStorage<T>(
   key: string,
@@ -46,6 +47,13 @@ export function useSearchTextContext() {
     throw new Error(
       "useSearchTextContext must be used within a SearchTextContextProvider"
     );
+  return context;
+}
+// -----------------------------------------------------
+export function useUserContext() {
+  const context = useContext(UserContext);
+  if (!context)
+    throw new Error("useUserContext must be used within a UserContextProvider");
   return context;
 }
 // -----------------------------------------------------

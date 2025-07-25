@@ -10,6 +10,7 @@ import HomeLayout from "../layout/HomeLayout";
 import BookmarkedPosts from "../pages/BookmarkedPosts";
 import { ToastContainer } from "react-toastify";
 import PostForm from "../pages/PostForm";
+import Login from "../pages/Login";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <BackToTopButton />
       <Routes>
         <Route path="/" element={<HomeLayout />}>
+          <Route path="login" element={<Login />} />
           <Route index element={<HomePage />} />
           <Route path="about" element={<About />} />
           <Route path="new-post" element={<PostForm />} />

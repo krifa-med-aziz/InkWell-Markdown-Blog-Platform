@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useBlogPostsContext } from "../lib/hooks";
+import { useState, useEffect, useRef } from "react";
+import { useBlogPostsContext, useUserContext } from "../lib/hooks";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -19,6 +19,18 @@ export default function PostForm() {
   const [tags, setTags] = useState(post?.tags?.join(",") || "");
   const [image, setImage] = useState(post?.image || "");
   const [content, setContent] = useState(post?.content || "");
+  const { LoggedIn } = useUserContext();
+  const hasShownWarning = useRef(false);
+
+  useEffect(() => {
+    if (!LoggedIn && !hasShownWarning.current) {
+      hasShownWarning.current = true;
+      toast.warn("You must be logged in to create or edit a post.", {
+        autoClose: 2000,
+      });
+      navigate("/login");
+    }
+  }, [LoggedIn, navigate]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,6 +74,10 @@ export default function PostForm() {
     setImage("");
     setContent("");
   };
+
+  if (!LoggedIn) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen">

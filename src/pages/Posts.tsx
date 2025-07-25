@@ -1,6 +1,10 @@
 import { PostListItem } from "../components/PostListItem";
 import ScrollableTabsButtonForce from "../components/ScrollableTabsButtonForce";
-import { useBlogPostsContext, useSearchTextContext } from "../lib/hooks";
+import {
+  useBlogPostsContext,
+  useSearchTextContext,
+  useUserContext,
+} from "../lib/hooks";
 import { ArrowDownNarrowWide, X } from "lucide-react";
 
 export default function Posts() {
@@ -44,6 +48,8 @@ export default function Posts() {
   let posts = !showSearchPosts ? filteredBlogPosts : searchPosts;
   if (sortBy === "recent" || sortBy === "oldest")
     posts = getSortedPosts(posts, sortBy);
+
+  const { LoggedIn } = useUserContext();
 
   return (
     <div className="min-h-screen py-8 max-w-4xl mx-auto flex flex-col items-center">
@@ -136,9 +142,14 @@ export default function Posts() {
         </section>
       ) : (
         <section className="[&>*:last-child_article]:border-b-0">
-          {posts.map((post) => (
-            <PostListItem key={post.id} post={post} />
-          ))}
+          {posts
+            .filter((post) => {
+              if (LoggedIn) return post;
+              else return !post.canDeleted;
+            })
+            .map((post) => (
+              <PostListItem key={post.id} post={post} />
+            ))}
         </section>
       )}
     </div>
