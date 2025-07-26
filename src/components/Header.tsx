@@ -76,7 +76,14 @@ export function Header() {
               Write
             </Link>
           </div>
-          <div className="md:hidden">
+          <div className="md:hidden flex gap-1">
+            <Link
+              to="new-post"
+              className="cursor-pointer flex items-center justify-center gap-2 bg-black text-white rounded-[5px] p-2"
+            >
+              <PenTool className=" h-4 w-4" />
+              Write
+            </Link>
             <DropDownMenu />
           </div>
         </div>
