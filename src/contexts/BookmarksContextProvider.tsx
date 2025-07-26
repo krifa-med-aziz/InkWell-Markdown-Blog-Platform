@@ -14,7 +14,11 @@ export default function BookmarksContextProvider({
   const handleTogglebookmark = (id: string) => {
     if (!currentUser) return;
     if (!LoggedIn) {
-      toast.warn("Please log in to bookmark posts.", { autoClose: 1000 });
+      toast.warn("Please log in to bookmark posts.", {
+        autoClose: 1000,
+        className:
+          "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
+      });
       return;
     }
     const currentBookmarks = currentUser.bookmarksPostsIds || [];
@@ -34,6 +38,8 @@ export default function BookmarksContextProvider({
       setUsers(updatedUsers);
       toast.info("Bookmark removed", {
         autoClose: 1000,
+        className:
+          "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
       });
     } else {
       const updatedBookmarks = [...currentBookmarks, id];
@@ -49,6 +55,8 @@ export default function BookmarksContextProvider({
       setUsers(updatedUsers);
       toast.success("Post bookmarked!", {
         autoClose: 1000,
+        className:
+          "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
       });
     }
   };

@@ -36,6 +36,8 @@ export default function Login() {
         setLoggedIn(true);
         toast.success(`Welcome back ${loggedInUser.name}!`, {
           autoClose: 1000,
+          className:
+            "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
         });
       }
       navigate("/posts", { replace: true });
@@ -75,14 +77,18 @@ export default function Login() {
         bookmarksPostsIds: [],
       });
       setErrors([]);
-      toast.success(`Welcome ${newUser.name}!`, { autoClose: 1000 });
+      toast.success(`Welcome ${newUser.name}!`, {
+        autoClose: 1000,
+        className:
+          "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
+      });
       navigate("/posts", { replace: true });
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="max-w-lg w-[90%] sm:w-full p-8  rounded-md shadow-2xl">
+    <div className="flex items-center justify-center min-h-[90vh] bg-gradient-to-br from-slate-100 to-slate-200">
+      <div className="max-w-lg w-[90%] sm:w-full p-8 rounded-md shadow-2xl">
         <h2 className="text-2xl font-bold mb-6 text-center">
           {Login ? "Log In" : "Sign Up"}
         </h2>

@@ -62,7 +62,11 @@ export function Header() {
                 onClick={() => {
                   setLoggedIn(false);
                   setCurrentUser(null);
-                  toast.info("Logged Out!", { autoClose: 1000 });
+                  toast.info("Logged Out!", {
+                    autoClose: 1000,
+                    className:
+                      "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
+                  });
                 }}
                 className="h-5 w-5 cursor-pointer"
               />

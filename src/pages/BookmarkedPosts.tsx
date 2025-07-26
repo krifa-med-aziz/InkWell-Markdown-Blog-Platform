@@ -13,10 +13,12 @@ export default function BookmarkedPosts() {
   useEffect(() => {
     if (!LoggedIn && !hasShownWarning.current) {
       hasShownWarning.current = true;
-      toast.warn("You must be logged in to create or edit a post.", {
+      toast.warn("You must be logged in to view your bookmarked posts.", {
         autoClose: 2000,
+        className:
+          "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
       });
-      navigate("/login");
+      navigate("/login", { replace: true });
     }
   }, [LoggedIn, navigate]);
 

@@ -95,6 +95,8 @@ export default function BlogPostsContextProvider({
     if (confirmed) {
       toast.info("Post deleted!", {
         autoClose: 1000,
+        className:
+          "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
       });
       const newBlogPosts = [...blogPosts].filter((p) => p.id !== id);
       setBlogPosts(newBlogPosts);

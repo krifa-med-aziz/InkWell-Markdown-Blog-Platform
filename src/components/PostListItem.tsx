@@ -103,7 +103,7 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
               </p>
             ))}
           </div>
-          <div className="flex  ml-auto gap-2">
+          <div className="flex ml-auto gap-2">
             {post.canEdited && (
               <button
                 className="cursor-pointer flex items-center gap-1 border border-gray-400 p-1 rounded-sm"
@@ -126,7 +126,7 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
         </div>
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8">
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+            <h2 className="sm:text-4xl text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
               {post.title}
             </h2>
             <p className="text-slate-600 mb-4 text-lg leading-relaxed">

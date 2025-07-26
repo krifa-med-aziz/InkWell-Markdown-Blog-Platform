@@ -10,7 +10,11 @@ export default function AuthRequired() {
 
   if (!LoggedIn) {
     if (!hasShownToast.current) {
-      toast.warn("You must login first!");
+      toast.warn("You must login first!", {
+        autoClose: 1000,
+        className:
+          "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
+      });
       hasShownToast.current = true;
     }
     return (

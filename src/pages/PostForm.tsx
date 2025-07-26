@@ -27,6 +27,8 @@ export default function PostForm() {
       hasShownWarning.current = true;
       toast.warn("You must be logged in to create or edit a post.", {
         autoClose: 2000,
+        className:
+          "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
       });
       navigate("/login");
     }
@@ -59,6 +61,8 @@ export default function PostForm() {
       `${edit ? "Post Edited Successfully" : "Post Published Successfully"}`,
       {
         autoClose: 1000,
+        className:
+          "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
       }
     );
     resetForm();
@@ -80,14 +84,14 @@ export default function PostForm() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen ">
       <section className="bg-gradient-to-br from-slate-100 to-slate-200 py-20">
-        <div className="container max-w-4xl mx-auto px-4  m-auto">
-          <div className="w-[95%] sm:w-[80%] mx-auto text-center">
-            <h1 className="text-5xl font-bold mb-6">
+        <div className="container px-8 max-w-4xl mx-auto  m-auto">
+          <div className="mx-auto text-center">
+            <h1 className="text-3xl sm:text-5xl font-bold mb-6">
               {!edit ? "Create a New Blog Post" : "Edit Blog Post"}
             </h1>
-            <p className="text-xl text-gray-500 mb-6">
+            <p className="sm:text-xl text-lg text-gray-500 mb-6">
               {!edit
                 ? "Let's share your knowledge with the world."
                 : "Update your post and keep your readers informed."}
@@ -98,7 +102,7 @@ export default function PostForm() {
 
       <form
         onSubmit={handleSubmit}
-        className="py-16 bg-white max-w-4xl w-[95%] sm:w-[80%] m-auto"
+        className="py-16 bg-white max-w-4xl px-8 m-auto"
       >
         <div className="mb-4">
           <label className="block font-semibold mb-1" htmlFor="title">

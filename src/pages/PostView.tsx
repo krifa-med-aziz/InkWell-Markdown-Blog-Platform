@@ -33,7 +33,7 @@ export default function PostView() {
 
   return (
     <div className="min-h-screen bg-white">
-      <article className="max-w-4xl mx-auto px-4 py-8">
+      <article className="max-w-4xl mx-auto p-8">
         <button
           onClick={handleBackClick}
           className="flex gap-1 mb-8 cursor-pointer hover:text-blue-600 transition-colors"
@@ -42,7 +42,7 @@ export default function PostView() {
           Back
         </button>
         <header className="mb-8">
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div className="flex flex-col-reverse items-start justify-between gap-2 mb-4">
             <div className="flex gap-2">
               {post.tags.map((tag) => (
                 <p
@@ -53,7 +53,7 @@ export default function PostView() {
                 </p>
               ))}
             </div>
-            <div className="flex gap-2">
+            <div className="flex ml-auto mb-2 gap-2">
               {post.canEdited && (
                 <button
                   className="cursor-pointer flex items-center gap-1 border border-gray-400 p-1 rounded-sm"
@@ -74,22 +74,22 @@ export default function PostView() {
               )}
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+          <h1 className="sm:text-4xl text-2xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
             {post.title}
           </h1>
 
           <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-start sm:items:center space-x-4">
               <p className="border border-gray-300 rounded-3xl px-2 py-1">
                 {getAuthorInitials(post.author)}
               </p>
               <div>
                 <p className="font-semibold text-slate-900">{post.author}</p>
-                <div className="flex items-center text-slate-500 text-sm space-x-4">
-                  <span>{post.date}</span>
-                  <span>•</span>
+                <div className="flex flex-col sm:flex-row items-start text-slate-500 text-sm  space-x-4">
+                  <span>• {post.date}</span>
+
                   <div className="flex items-center gap-1">
-                    <p>last updated :</p>
+                    <p>• last updated :</p>
                     {post.lastUpdatedDate}
                   </div>
                 </div>
