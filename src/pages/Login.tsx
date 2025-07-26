@@ -46,6 +46,7 @@ export default function Login() {
         password: "",
         confirmPassword: "",
         createdAt: "",
+        bookmarksPostsIds: [],
       });
       setErrors([]);
       return;
@@ -59,6 +60,7 @@ export default function Login() {
         email: formData.email,
         password: formData.password,
         createdAt: new Date().toISOString().split("T")[0],
+        bookmarksPostsIds: [],
       };
       const newUsers = [...users, newUser];
       setUsers(newUsers);
@@ -70,6 +72,7 @@ export default function Login() {
         password: "",
         confirmPassword: "",
         createdAt: "",
+        bookmarksPostsIds: [],
       });
       setErrors([]);
       toast.success(`Welcome ${newUser.name}!`, { autoClose: 1000 });
