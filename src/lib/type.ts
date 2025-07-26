@@ -19,6 +19,7 @@ export type TUser = {
   email: string;
   password: string;
   createdAt: string;
+  bookmarksPostsIds: string[];
 };
 
 export type TFormData = TUser & {

@@ -45,7 +45,7 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
                   key={tag}
                   className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
                 >
-                  {tag}
+                  {tag.charAt(0).toUpperCase() + tag.slice(1)}
                 </p>
               ))}
             </div>

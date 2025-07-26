@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 export function Header() {
   const navigate = useNavigate();
-  const { LoggedIn, setLoggedIn, currentUser } = useUserContext();
+  const { LoggedIn, setLoggedIn, currentUser, setCurrentUser } =
+    useUserContext();
   return (
     <header className=" bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50  m-auto shadow-sm">
       <div className="container mx-auto px-4 w-[95%] sm:w-[80%] m-auto">
@@ -60,6 +61,7 @@ export function Header() {
               <LogOut
                 onClick={() => {
                   setLoggedIn(false);
+                  setCurrentUser(null);
                   toast.info("Logged Out!", { autoClose: 1000 });
                 }}
                 className="h-5 w-5 cursor-pointer"

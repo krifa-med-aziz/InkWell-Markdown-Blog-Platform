@@ -1,7 +1,7 @@
 import { ArrowRight, PenTool, Users, Zap } from "lucide-react";
-import { PostListItem } from "../components/PostListItem";
 import { Link } from "react-router-dom";
 import { featuredPosts } from "../utils/data";
+import { PostListItem } from "../components/PostListItem";
 
 export default function HomePage() {
   return (

@@ -22,6 +22,7 @@ export default function UserContextProvider({
     password: "",
     confirmPassword: "",
     createdAt: "",
+    bookmarksPostsIds: [],
   });
   const [users, setUsers] = useLocalStorage<TUser[]>("users", []);
 
@@ -87,6 +88,7 @@ export default function UserContextProvider({
       password: "",
       confirmPassword: "",
       createdAt: "",
+      bookmarksPostsIds: [],
     });
   };
 
