@@ -66,8 +66,8 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-slate-800 mt-8 pt-8 text-center">
-          <p className="text-slate-400">
-            © 2025 InkWell. Made with 💙 by{" "}
+          <div className="flex flex-col sm:flex-wrap gap-1 items-center justify-center">
+            <p className="text-slate-400">© 2025 InkWell. Made with 💙 by </p>
             <a
               target="_blank"
               className="font-bold italic"
@@ -75,7 +75,7 @@ export function Footer() {
             >
               Mohamed Aziz Krifa
             </a>
-          </p>
+          </div>
         </div>
       </div>
     </footer>

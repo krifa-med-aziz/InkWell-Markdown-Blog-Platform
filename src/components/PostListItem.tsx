@@ -106,27 +106,27 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
           <div className="flex ml-auto gap-2">
             {post.canEdited && (
               <button
-                className="cursor-pointer flex items-center gap-1 border border-gray-400 p-1 rounded-sm"
+                className="cursor-pointer flex items-center gap-1 border border-gray-300 p-1 rounded-sm hover:bg-gray-200"
                 onClick={(e) => editPost(e, post.id)}
               >
                 <Pencil className="h-4 w-4" />
-                Edit Post
+                <p className="hidden sm:block">Edit Post</p>
               </button>
             )}
             {post.canDeleted && (
               <button
-                className="cursor-pointer flex items-center gap-1 border p-1 rounded-sm text-white bg-red-600"
+                className="cursor-pointer flex items-center gap-1 border p-1 rounded-sm text-white bg-red-600 hover:bg-red-700"
                 onClick={(e) => deletePost(e, post.id)}
               >
                 <X className="h-5 w-5 text-white hover:text-white" />
-                Delete
+                <p className="hidden sm:block">Delete</p>
               </button>
             )}
           </div>
         </div>
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8">
           <div>
-            <h2 className="sm:text-4xl text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+            <h2 className="lg:text-4xl sm:text-3xl text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
               {post.title}
             </h2>
             <p className="text-slate-600 mb-4 text-lg leading-relaxed">
@@ -143,17 +143,19 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
             </div>
           )}
         </div>
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-between">
+        <div className="flex flex-col sm:flex-row gap-1 sm:gap-0 items-center justify-between">
           <div className="flex flex-col sm:flex-row  items-center space-x-3">
-            <p className="text-lg border border-gray-300 rounded-3xl px-2 py-1 ">
-              {getAuthorInitials(post.author)}
-            </p>
-            <div className="text-center sm:text-left">
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-lg border border-gray-300 rounded-3xl px-2 py-1">
+                {getAuthorInitials(post.author)}
+              </p>
               <p className="font-medium text-slate-900">{post.author}</p>
-              <p className="text-sm text-slate-500">{post.date}</p>
             </div>
+            <p className="text-center sm:text-left text-sm text-slate-500">
+              • {post.date}
+            </p>
           </div>
-          <div className="flex flex-col-reverse sm:flex-row  gap-1 items-center text-slate-500">
+          <div className="flex flex-col-reverse sm:flex-row gap-1 items-center text-slate-500">
             <Bookmark
               className={`h-5 w-4 cursor-pointer ${
                 bookmarksPostsIds.includes(post.id) ? "fill-gray-500" : ""

@@ -40,7 +40,7 @@ export default function BookmarkedPosts() {
         </div>
       </section>
       {bookmakredPosts.length === 0 ? (
-        <section className="max-w-2xl mx-auto my-12 p-8 bg-white rounded-lg  text-center">
+        <section className="max-w-4xl mx-auto my-12 p-8 bg-white rounded-lg  text-center">
           <h2 className="text-2xl font-semibold text-slate-800 mb-4">
             No Bookmarks Yet
           </h2>
@@ -56,7 +56,7 @@ export default function BookmarkedPosts() {
           </Link>
         </section>
       ) : (
-        <section className="max-w-4xl mx-auto [&>*:last-child_article]:border-b-0">
+        <section className="max-w-6xl mx-auto [&>*:last-child_article]:border-b-0">
           {bookmakredPosts.map((post) => {
             if (!post) return null;
             return <PostListItem key={post.id} post={post} />;

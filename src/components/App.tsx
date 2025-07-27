@@ -4,15 +4,15 @@ import BackToTopButton from "./BackToTopButton";
 import HomeLayout from "../layout/HomeLayout";
 import { ToastContainer } from "react-toastify";
 import { lazy, Suspense } from "react";
+import Login from "../pages/Login";
+import NotFound from "../pages/NotFound";
+import BookmarkedPosts from "../pages/BookmarkedPosts";
 
 const HomePage = lazy(() => import("../pages/HomePage"));
 const About = lazy(() => import("../pages/About"));
 const Posts = lazy(() => import("../pages/Posts"));
 const PostView = lazy(() => import("../pages/PostView"));
 const PostForm = lazy(() => import("../pages/PostForm"));
-const BookmarkedPosts = lazy(() => import("../pages/BookmarkedPosts"));
-const NotFound = lazy(() => import("../pages/NotFound"));
-const Login = lazy(() => import("../pages/Login"));
 
 function App() {
   return (

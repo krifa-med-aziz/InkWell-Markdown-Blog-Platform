@@ -7,7 +7,7 @@ export function Header() {
     useUserContext();
   return (
     <header className=" bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50  m-auto shadow-sm">
-      <div className="container mx-auto px-4 w-[95%] sm:w-[80%] m-auto">
+      <div className="container mx-auto px-4 w-[95%] sm:w-[85%] m-auto">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-8">
             <Link to="/" className="flex items-center space-x-2">
@@ -160,7 +160,7 @@ export default function DropDownMenu() {
                 to="/login"
                 onClick={() => setLoggedIn(false)}
                 type="submit"
-                className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                className="block w-full px-4 py-2 text-left text-sm text-red-600 data-focus:bg-red-600  data-focus:text-white data-focus:outline-hidden"
               >
                 {LoggedIn ? "Sign Out" : "Log In"}
               </Link>

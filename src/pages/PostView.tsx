@@ -33,7 +33,7 @@ export default function PostView() {
 
   return (
     <div className="min-h-screen bg-white">
-      <article className="max-w-4xl mx-auto p-8">
+      <article className="max-w-4xl mx-auto p-4 sm:p-8">
         <button
           onClick={handleBackClick}
           className="flex gap-1 mb-8 cursor-pointer hover:text-blue-600 transition-colors"
@@ -43,7 +43,7 @@ export default function PostView() {
         </button>
         <header className="mb-8">
           <div className="flex flex-col-reverse items-start justify-between gap-2 mb-4">
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <p
                   key={tag}
@@ -56,29 +56,30 @@ export default function PostView() {
             <div className="flex ml-auto mb-2 gap-2">
               {post.canEdited && (
                 <button
-                  className="cursor-pointer flex items-center gap-1 border border-gray-400 p-1 rounded-sm"
+                  className="cursor-pointer flex items-center gap-1 border border-gray-300 p-1 rounded-sm hover:bg-gray-200"
                   onClick={(e) => editPost(e, post.id)}
                 >
                   <Pencil className="h-4 w-4" />
-                  Edit Post
+                  <p className="hidden sm:block">Edit Post</p>
                 </button>
               )}
               {post.canDeleted && (
                 <button
-                  className="cursor-pointer flex items-center gap-1 border p-1 rounded-sm text-white bg-red-600"
+                  className="cursor-pointer flex items-center gap-1 border p-1 rounded-sm text-white bg-red-600 hover:bg-red-700"
                   onClick={(e) => deletePost(e, post.id)}
                 >
                   <X className="h-5 w-5 text-white hover:text-white" />
-                  Delete
+
+                  <p className="hidden sm:block">Delete</p>
                 </button>
               )}
             </div>
           </div>
-          <h1 className="sm:text-4xl text-2xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+          <h1 className="sm:text-3xl text-xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
             {post.title}
           </h1>
 
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between mb-6">
             <div className="flex items-start sm:items:center space-x-4">
               <p className="border border-gray-300 rounded-3xl px-2 py-1">
                 {getAuthorInitials(post.author)}
@@ -88,15 +89,15 @@ export default function PostView() {
                 <div className="flex flex-col sm:flex-row items-start text-slate-500 text-sm  space-x-4">
                   <span>• {post.date}</span>
 
-                  <div className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-1">
                     <p>• last updated :</p>
-                    {post.lastUpdatedDate}
+                    <p>{post.lastUpdatedDate}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center ml-auto space-x-2">
               <Heart className="w-5 h-5 cursor-pointer" />
               <MessageCircle className="w-5 h-5 cursor-pointer" />
               <Bookmark

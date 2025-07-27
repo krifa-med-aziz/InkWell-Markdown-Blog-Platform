@@ -20,6 +20,14 @@ export default function ScrollableTabsButtonForce() {
     return Array.from(new Set(tagsArr));
   }, [blogPosts]);
 
+  const sortedTags = React.useMemo(
+    () =>
+      [...allTags].sort((a, b) =>
+        a.localeCompare(b, undefined, { sensitivity: "base" })
+      ),
+    [allTags]
+  );
+
   const value = React.useMemo(() => {
     if (!currentTypeFilter) return 0;
     const tagIndex = allTags.findIndex((tag) => tag === currentTypeFilter);
@@ -37,31 +45,21 @@ export default function ScrollableTabsButtonForce() {
     }
   };
   return (
-    <Box
-      sx={{
-        maxWidth: { xs: 320, sm: 420, md: 750 },
-        bgcolor: "background.paper",
-      }}
-    >
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons
-        allowScrollButtonsMobile
-        aria-label="scrollable force tabs "
+    <div className="flex justify-center">
+      <Box
+        sx={{
+          maxWidth: { xs: 320, sm: 420, md: 750 },
+          bgcolor: "background.paper",
+        }}
       >
-        <Tab
-          sx={{
-            fontSize: {
-              xs: "0.75rem",
-              sm: "0.875rem",
-              md: "1rem",
-            },
-          }}
-          label="For You"
-        />
-        {allTags.map((t) => (
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          variant="scrollable"
+          scrollButtons
+          allowScrollButtonsMobile
+          aria-label="scrollable force tabs "
+        >
           <Tab
             sx={{
               fontSize: {
@@ -70,11 +68,23 @@ export default function ScrollableTabsButtonForce() {
                 md: "1rem",
               },
             }}
-            key={t}
-            label={t}
+            label="For You"
           />
-        ))}
-      </Tabs>
-    </Box>
+          {sortedTags.map((t) => (
+            <Tab
+              sx={{
+                fontSize: {
+                  xs: "0.75rem",
+                  sm: "0.875rem",
+                  md: "1rem",
+                },
+              }}
+              key={t}
+              label={t}
+            />
+          ))}
+        </Tabs>
+      </Box>
+    </div>
   );
 }

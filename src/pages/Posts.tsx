@@ -52,7 +52,7 @@ export default function Posts() {
   const { LoggedIn } = useUserContext();
 
   return (
-    <div className="min-h-screen py-8 max-w-4xl mx-auto flex flex-col items-center">
+    <div className="min-h-screen py-8 max-w-6xl mx-auto flex flex-col items-center">
       <section className="w-full px-8  ">
         <div className="flex flex-col gap-4 sm:flex-row items-center justify-between mb-5">
           <form onSubmit={handleSubmit} className="relative w-full max-w-md">
