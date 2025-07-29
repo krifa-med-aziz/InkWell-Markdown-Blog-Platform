@@ -7,12 +7,16 @@ import { lazy, Suspense } from "react";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import BookmarkedPosts from "../pages/BookmarkedPosts";
+import AboutPage from "../pages/About";
+import PostForm from "../pages/PostForm";
+import Posts from "../pages/Posts";
+import PostView from "../pages/PostView";
 
 const HomePage = lazy(() => import("../pages/HomePage"));
-const About = lazy(() => import("../pages/About"));
-const Posts = lazy(() => import("../pages/Posts"));
-const PostView = lazy(() => import("../pages/PostView"));
-const PostForm = lazy(() => import("../pages/PostForm"));
+// const About = lazy(() => import("../pages/About"));
+// const Posts = lazy(() => import("../pages/Posts"));
+// const PostView = lazy(() => import("../pages/PostView"));
+// const PostForm = lazy(() => import("../pages/PostForm"));
 
 function App() {
   return (
@@ -30,7 +34,7 @@ function App() {
           <Route path="/" element={<HomeLayout />}>
             <Route path="login" element={<Login />} />
             <Route index element={<HomePage />} />
-            <Route path="about" element={<About />} />
+            <Route path="about" element={<AboutPage />} />
             <Route path="new-post" element={<PostForm />} />
             <Route path="edit-post/:id" element={<PostForm />} />
             <Route path="posts" element={<Posts />} />
