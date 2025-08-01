@@ -30,15 +30,15 @@ export default function ScrollableTabsButtonForce() {
 
   const value = React.useMemo(() => {
     if (!currentTypeFilter) return 0;
-    const tagIndex = allTags.findIndex((tag) => tag === currentTypeFilter);
+    const tagIndex = sortedTags.findIndex((tag) => tag === currentTypeFilter);
     return tagIndex === -1 ? 0 : tagIndex + 1;
-  }, [currentTypeFilter, allTags]);
+  }, [currentTypeFilter, sortedTags]);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     if (newValue === 0) {
       handleQueryParamChange("type", null);
     } else {
-      const selectedTag = allTags[newValue - 1];
+      const selectedTag = sortedTags[newValue - 1];
       if (selectedTag) {
         handleQueryParamChange("type", selectedTag);
       }
