@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import type { TPostListItem } from "../lib/type";
 import { getAuthorInitials } from "../utils/getAuthorInitials ";
 import { Bookmark, Pencil, X } from "lucide-react";
-import { useBlogPostsContext, useBookmarksContext } from "../lib/hooks";
+import {
+  useBlogPostsContext,
+  useBookmarksContext,
+  useUserContext,
+} from "../lib/hooks";
 
 type PostListItemProps = {
   post: TPostListItem;
@@ -12,6 +16,7 @@ type PostListItemProps = {
 export function PostListItem({ post, featured = false }: PostListItemProps) {
   const { handleTogglebookmark, bookmarksPostsIds } = useBookmarksContext();
   const { deletePost, editPost } = useBlogPostsContext();
+  const { currentUser } = useUserContext();
 
   const getLinkPath = () => {
     if (
@@ -94,34 +99,40 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
       <article className="border-b border-slate-200 py-8 px-8">
         <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-4 mb-4">
           <div className="flex gap-2">
-            {post.tags.map((tag) => (
-              <p
-                key={tag}
-                className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
-              >
-                {tag}
-              </p>
-            ))}
+            {post.tags
+              .filter((post) => post !== "")
+              .map((tag) => (
+                <p
+                  key={tag}
+                  className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
+                >
+                  {tag}
+                </p>
+              ))}
           </div>
           <div className="flex ml-auto gap-2">
-            {post.canEdited && (
-              <button
-                className="cursor-pointer flex items-center gap-1 border border-gray-300 p-1 rounded-sm hover:bg-gray-200"
-                onClick={(e) => editPost(e, post.id)}
-              >
-                <Pencil className="h-4 w-4" />
-                <p className="hidden sm:block">Edit Post</p>
-              </button>
-            )}
-            {post.canDeleted && (
-              <button
-                className="cursor-pointer flex items-center gap-1 border p-1 rounded-sm text-white bg-red-600 hover:bg-red-700"
-                onClick={(e) => deletePost(e, post.id)}
-              >
-                <X className="h-5 w-5 text-white hover:text-white" />
-                <p className="hidden sm:block">Delete</p>
-              </button>
-            )}
+            {post.createdBy === currentUser?.name &&
+              post.canDeleted &&
+              !location.pathname.includes("/my-bookmarks") && (
+                <button
+                  className="cursor-pointer flex items-center gap-1 border border-gray-300 p-1 rounded-sm hover:bg-gray-200"
+                  onClick={(e) => editPost(e, post.id)}
+                >
+                  <Pencil className="h-4 w-4" />
+                  <p className="hidden sm:block">Edit Post</p>
+                </button>
+              )}
+            {post.createdBy === currentUser?.name &&
+              post.canDeleted &&
+              !location.pathname.includes("/my-bookmarks") && (
+                <button
+                  className="cursor-pointer flex items-center gap-1 border p-1 rounded-sm text-white bg-red-600 hover:bg-red-700"
+                  onClick={(e) => deletePost(e, post.id)}
+                >
+                  <X className="h-5 w-5 text-white hover:text-white" />
+                  <p className="hidden sm:block">Delete</p>
+                </button>
+              )}
           </div>
         </div>
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8">

@@ -12,6 +12,7 @@ export default function PostForm() {
   // to test if we add a new post or edit existing post
   const { pathname } = useLocation();
   const edit = pathname.includes("edit-post");
+  const { currentUser } = useUserContext();
 
   const [title, setTitle] = useState(post?.title || "");
   const [excerpt, setExcerpt] = useState(post?.excerpt || "");
@@ -51,6 +52,7 @@ export default function PostForm() {
       content,
       canDeleted: true,
       canEdited: true,
+      createdBy: currentUser?.name,
     };
 
     const updatedPosts = edit

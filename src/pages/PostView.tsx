@@ -10,7 +10,11 @@ import {
   X,
 } from "lucide-react";
 import { getAuthorInitials } from "../utils/getAuthorInitials ";
-import { useBlogPostsContext, useBookmarksContext } from "../lib/hooks";
+import {
+  useBlogPostsContext,
+  useBookmarksContext,
+  useUserContext,
+} from "../lib/hooks";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -23,6 +27,7 @@ export default function PostView() {
   const { id } = useParams();
   const navigate = useNavigate();
   const post = getPostById(id);
+  const { currentUser } = useUserContext();
 
   const handleBackClick = () => {
     const backPath = fromSearch ? `/posts${fromSearch}` : "/posts";
@@ -44,17 +49,19 @@ export default function PostView() {
         <header className="mb-8">
           <div className="flex flex-col-reverse items-start justify-between gap-2 mb-4">
             <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <p
-                  key={tag}
-                  className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
-                >
-                  {tag}
-                </p>
-              ))}
+              {post.tags
+                .filter((post) => post !== "")
+                .map((tag) => (
+                  <p
+                    key={tag}
+                    className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
+                  >
+                    {tag}
+                  </p>
+                ))}
             </div>
             <div className="flex ml-auto mb-2 gap-2">
-              {post.canEdited && (
+              {post.createdBy === currentUser?.name && post.canDeleted && (
                 <button
                   className="cursor-pointer flex items-center gap-1 border border-gray-300 p-1 rounded-sm hover:bg-gray-200"
                   onClick={(e) => editPost(e, post.id)}
@@ -63,7 +70,7 @@ export default function PostView() {
                   <p className="hidden sm:block">Edit Post</p>
                 </button>
               )}
-              {post.canDeleted && (
+              {post.createdBy === currentUser?.name && post.canDeleted && (
                 <button
                   className="cursor-pointer flex items-center gap-1 border p-1 rounded-sm text-white bg-red-600 hover:bg-red-700"
                   onClick={(e) => deletePost(e, post.id)}

@@ -14,7 +14,7 @@ export default function ScrollableTabsButtonForce() {
     const tagsArr: string[] = [];
     blogPosts.forEach((post) => {
       if (post.tags) {
-        post.tags.forEach((tag) => tagsArr.push(tag));
+        post.tags.forEach((tag) => tag !== "" && tagsArr.push(tag));
       }
     });
     return Array.from(new Set(tagsArr));

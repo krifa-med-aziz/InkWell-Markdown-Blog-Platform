@@ -10,6 +10,7 @@ export type TPostListItem = {
   image?: string;
   canDeleted?: boolean;
   canEdited?: boolean;
+  createdBy?: string;
 };
 export type Tsorting = "oldest" | "recent" | "";
 
