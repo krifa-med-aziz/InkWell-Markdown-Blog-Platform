@@ -101,6 +101,7 @@ import { toast } from "react-toastify";
 
 export default function DropDownMenu({ OnLogOut }: { OnLogOut: () => void }) {
   const { LoggedIn, currentUser } = useUserContext();
+  const navigate = useNavigate();
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -152,18 +153,21 @@ export default function DropDownMenu({ OnLogOut }: { OnLogOut: () => void }) {
             </Link>
           </MenuItem>
 
-          <form action="#" method="POST">
-            <MenuItem>
-              <Link
-                to="/posts"
-                onClick={OnLogOut}
-                type="submit"
-                className="block w-full px-4 py-2 text-left text-sm text-red-600 data-focus:bg-red-600  data-focus:text-white data-focus:outline-hidden"
-              >
-                {LoggedIn ? "Sign Out" : "Log In"}
-              </Link>
-            </MenuItem>
-          </form>
+          <MenuItem>
+            <Link
+              to={`${LoggedIn ? "/" : "/login"}`}
+              onClick={() => {
+                if (LoggedIn) {
+                  OnLogOut();
+                } else {
+                  navigate("/login", { replace: true });
+                }
+              }}
+              className="block w-full px-4 py-2 text-left text-sm text-red-600 data-focus:bg-red-600  data-focus:text-white data-focus:outline-hidden"
+            >
+              {LoggedIn ? "Sign Out" : "Log In"}
+            </Link>
+          </MenuItem>
         </div>
       </MenuItems>
     </Menu>
