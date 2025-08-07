@@ -5,6 +5,15 @@ export function Header() {
   const navigate = useNavigate();
   const { LoggedIn, setLoggedIn, currentUser, setCurrentUser } =
     useUserContext();
+
+  const OnLogOut = () => {
+    setLoggedIn(false);
+    setCurrentUser(null);
+    toast.info("Logged Out!", {
+      autoClose: 1000,
+      className: "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
+    });
+  };
   return (
     <header className=" bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50  m-auto shadow-sm">
       <div className="container mx-auto px-4 w-[95%] sm:w-[85%] m-auto">
@@ -58,18 +67,7 @@ export function Header() {
             )}
 
             {LoggedIn && (
-              <LogOut
-                onClick={() => {
-                  setLoggedIn(false);
-                  setCurrentUser(null);
-                  toast.info("Logged Out!", {
-                    autoClose: 1000,
-                    className:
-                      "!text-sm !w-[70%] !mt-8 sm:!text-base sm:!w-[400px] sm:!mt-4",
-                  });
-                }}
-                className="h-5 w-5 cursor-pointer"
-              />
+              <LogOut onClick={OnLogOut} className="h-5 w-5 cursor-pointer" />
             )}
 
             <Link
@@ -88,7 +86,7 @@ export function Header() {
               <PenTool className=" h-4 w-4" />
               Write
             </Link>
-            <DropDownMenu />
+            <DropDownMenu OnLogOut={OnLogOut} />
           </div>
         </div>
       </div>
@@ -101,8 +99,8 @@ import { useUserContext } from "../lib/hooks";
 import { getAuthorInitials } from "../utils/getAuthorInitials ";
 import { toast } from "react-toastify";
 
-export default function DropDownMenu() {
-  const { LoggedIn, setLoggedIn, currentUser } = useUserContext();
+export default function DropDownMenu({ OnLogOut }: { OnLogOut: () => void }) {
+  const { LoggedIn, currentUser } = useUserContext();
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -157,8 +155,8 @@ export default function DropDownMenu() {
           <form action="#" method="POST">
             <MenuItem>
               <Link
-                to="/login"
-                onClick={() => setLoggedIn(false)}
+                to="/posts"
+                onClick={OnLogOut}
                 type="submit"
                 className="block w-full px-4 py-2 text-left text-sm text-red-600 data-focus:bg-red-600  data-focus:text-white data-focus:outline-hidden"
               >

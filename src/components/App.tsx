@@ -13,10 +13,6 @@ import Posts from "../pages/Posts";
 import PostView from "../pages/PostView";
 
 const HomePage = lazy(() => import("../pages/HomePage"));
-// const About = lazy(() => import("../pages/About"));
-// const Posts = lazy(() => import("../pages/Posts"));
-// const PostView = lazy(() => import("../pages/PostView"));
-// const PostForm = lazy(() => import("../pages/PostForm"));
 
 function App() {
   return (
