@@ -22,12 +22,15 @@ export default function BlogPostsContextProvider({
   );
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
-  const [fromSearch, setFromSearch] = useState("");
+  const [fromSearch, setFromSearch] = useState(search);
 
   useEffect(() => {
     // Only update fromSearch when we're on the posts page with search params
     if (pathname === "/posts" && search) {
       setFromSearch(search);
+    }
+    if (pathname === "/posts" && !search) {
+      setFromSearch("");
     }
   }, [pathname, search]);
 

@@ -54,7 +54,7 @@ export default function PostView() {
                 .map((tag) => (
                   <p
                     key={tag}
-                    className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
+                    className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1 capitalize"
                   >
                     {tag}
                   </p>
@@ -122,10 +122,10 @@ export default function PostView() {
           </div>
         </header>
 
-        {post.image && (
+        {post.coverImage && (
           <div className="mb-8 rounded-xl overflow-hidden">
             <img
-              src={post.image || "/placeholder.svg"}
+              src={post.coverImage || "/placeholder.svg"}
               alt={post.title}
               width={800}
               height={400}

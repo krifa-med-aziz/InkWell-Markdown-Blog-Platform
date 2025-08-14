@@ -14,12 +14,33 @@ export default function PostForm() {
   const edit = pathname.includes("edit-post");
   const { currentUser } = useUserContext();
 
-  const [title, setTitle] = useState(post?.title || "");
-  const [excerpt, setExcerpt] = useState(post?.excerpt || "");
-  const [author, setAuthor] = useState(post?.author || "");
-  const [tags, setTags] = useState(post?.tags?.join(",") || "");
-  const [image, setImage] = useState(post?.image || "");
-  const [content, setContent] = useState(post?.content || "");
+  // const [title, setTitle] = useState(post?.title || "");
+  // const [excerpt, setExcerpt] = useState(post?.excerpt || "");
+  // const [author, setAuthor] = useState(post?.author || "");
+  // const [tags, setTags] = useState(post?.tags?.join(",") || "");
+  // const [image, setImage] = useState(post?.image || "");
+  // const [content, setContent] = useState(post?.content || "");
+
+  const [form, setForm] = useState({
+    title: post?.title || "",
+    excerpt: post?.excerpt || "",
+    author: post?.author || "",
+    tags: post?.tags?.join(",") || "",
+    coverImage: post?.coverImage || "",
+    content: post?.content || "",
+  });
+
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const { LoggedIn } = useUserContext();
   const hasShownWarning = useRef(false);
 
@@ -38,18 +59,16 @@ export default function PostForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updatedPost = {
+      ...form,
       id: edit && post?.id ? post?.id : crypto.randomUUID(),
-      title: title,
-      excerpt,
-      author,
-      tags: tags.split(",").map((tag) => tag.trim()),
-      image,
+      title: form.title,
+      tags: form.tags.split(",").map((tag) => tag.trim()),
+      form,
       date:
         edit && post?.date
           ? post?.date
           : new Date().toISOString().split("T")[0],
       lastUpdatedDate: new Date().toISOString().split("T")[0],
-      content,
       canDeleted: true,
       canEdited: true,
       createdBy: currentUser?.name,
@@ -73,12 +92,20 @@ export default function PostForm() {
   };
 
   const resetForm = () => {
-    setTitle("");
-    setExcerpt("");
-    setAuthor("");
-    setTags("");
-    setImage("");
-    setContent("");
+    // setTitle("");
+    // setExcerpt("");
+    // setAuthor("");
+    // setTags("");
+    // setImage("");
+    // setContent("");
+    setForm({
+      title: "",
+      excerpt: "",
+      author: "",
+      tags: "",
+      coverImage: "",
+      content: "",
+    });
   };
 
   if (!LoggedIn) {
@@ -112,8 +139,8 @@ export default function PostForm() {
           </label>
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={form.title}
+            onChange={handleChange}
             id="title"
             name="title"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition"
@@ -127,8 +154,8 @@ export default function PostForm() {
           </label>
           <input
             type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            value={form.author}
+            onChange={handleChange}
             id="author"
             name="author"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition"
@@ -144,8 +171,8 @@ export default function PostForm() {
           <input
             required
             type="text"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
+            value={form.tags}
+            onChange={handleChange}
             id="tags"
             name="tags"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition"
@@ -160,8 +187,8 @@ export default function PostForm() {
           <input
             required
             type="url"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            value={form.coverImage}
+            onChange={handleChange}
             id="coverImage"
             name="coverImage"
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition"
@@ -175,8 +202,8 @@ export default function PostForm() {
           <textarea
             required
             id="excerpt"
-            value={excerpt}
-            onChange={(e) => setExcerpt(e.target.value)}
+            value={form.excerpt}
+            onChange={handleChange}
             name="excerpt"
             className="w-full border border-gray-300 rounded px-3 py-2 h-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition"
             placeholder="Short summary of your post"
@@ -188,8 +215,8 @@ export default function PostForm() {
           </label>
           <textarea
             id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            value={form.content}
+            onChange={handleChange}
             name="content"
             className="w-full border border-gray-300 rounded px-3 py-2 h-40 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition"
             placeholder="Write your post content here..."
@@ -238,10 +265,10 @@ export default function PostForm() {
             type="reset"
             onClick={() => {
               if (edit) {
-                navigate(`/posts/${id}`);
+                navigate(`/posts/${id}`, { replace: true });
               } else {
                 resetForm();
-                navigate("/posts");
+                navigate("/posts", { replace: true });
               }
             }}
             className="bg-red-600  text-white px-6 py-2 cursor-pointer rounded font-semibold hover:bg-red-700 transition"

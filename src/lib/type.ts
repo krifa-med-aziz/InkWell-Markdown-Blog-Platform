@@ -7,7 +7,7 @@ export type TPostListItem = {
   content: string;
   lastUpdatedDate: string;
   tags: string[];
-  image?: string;
+  coverImage?: string;
   canDeleted?: boolean;
   canEdited?: boolean;
   createdBy?: string;

@@ -32,10 +32,10 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
     return (
       <Link to={getLinkPath()}>
         <article className="flex flex-col  bg-white rounded-xl min-h-[470px] shadow-sm  hover:shadow-md transition-shadow overflow-hidden">
-          {post.image && (
+          {post.coverImage && (
             <div className="aspect-video overflow-hidden ">
               <img
-                src={post.image || "/placeholder.svg"}
+                src={post.coverImage || "/placeholder.svg"}
                 alt={post.title}
                 width={400}
                 height={200}
@@ -104,7 +104,7 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
               .map((tag) => (
                 <p
                   key={tag}
-                  className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1"
+                  className="text-xs font-semibold bg-gray-100 rounded-2xl px-3 py-1 capitalize"
                 >
                   {tag}
                 </p>
@@ -144,11 +144,11 @@ export function PostListItem({ post, featured = false }: PostListItemProps) {
               {post.excerpt}
             </p>
           </div>
-          {post.image && (
+          {post.coverImage && (
             <div className="rounded-xl overflow-hidden my-4 max-w-[450px]">
               <img
                 className="aspect-3/2 w-[450px] "
-                src={post.image}
+                src={post.coverImage}
                 alt={post.title}
               />
             </div>

@@ -6,7 +6,7 @@ export const featuredPosts = [
     date: "2024-01-15",
     lastUpdatedDate: "2024-01-20",
     tags: ["React", "JavaScript", "Tutorial"],
-    image:
+    coverImage:
       "https://eu-central-1-shared-euc1-02.graphassets.com/AvHQ3RDvFSousA8iwElOKz/F7cSmluHRrO6f7XeSuJy",
     excerpt:
       "Learn how to effectively use the useEffect hook in React to handle side effects like fetching data and interacting with the DOM.",
@@ -51,7 +51,7 @@ useEffect(() => {
     date: "2024-02-22",
     lastUpdatedDate: "2024-02-23",
     tags: ["Markdown", "Writing", "Productivity"],
-    image:
+    coverImage:
       "https://hackernoon.imgix.net/images/1LFWV1HmcxgIDvjV1Yqt5rcv93l2-ydd335s.jpeg",
     excerpt:
       "New to Markdown? This guide walks you through the most common formatting features like bold, italics, code blocks, and more.",
@@ -85,7 +85,8 @@ def greet(name):
     date: "2024-03-10",
     lastUpdatedDate: "2024-03-12",
     tags: ["Git", "Version Control", "Tools"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg",
+    coverImage:
+      "https://upload.wikimedia.org/wikipedia/commons/3/3f/Git_icon.svg",
     excerpt:
       "Explore why Git is a must-have skill for developers, from version control basics to collaboration on platforms like GitHub.",
     content: `# Why Every Developer Should Learn Git
@@ -115,7 +116,7 @@ Platforms like GitHub make collaboration even easier.
     date: "2024-01-10",
     lastUpdatedDate: "2024-01-14",
     tags: ["React", "Beginner", "Concepts"],
-    image:
+    coverImage:
       "https://aglowiditsolutions.com/wp-content/uploads/2022/04/React-Props-vs-State.png",
     excerpt:
       "Confused about props and state in React? This guide explains the differences and when to use each in your components.",
@@ -150,7 +151,7 @@ const [count, setCount] = useState(0);
     date: "2024-03-01",
     lastUpdatedDate: "2024-03-04",
     tags: ["JavaScript", "Tips", "Productivity"],
-    image:
+    coverImage:
       "https://media2.dev.to/dynamic/image/width=1600,height=900,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Fnd1ek06n5w0b8dtk9gzl.png",
     excerpt:
       "From map() to reduce(), this article covers the most important JavaScript array methods for everyday development.",
@@ -191,7 +192,7 @@ Reduces array to a single value.
     date: "2024-04-12",
     lastUpdatedDate: "2024-04-15",
     tags: ["CSS", "Tailwind", "Styling"],
-    image:
+    coverImage:
       "https://media2.dev.to/dynamic/image/width=1600,height=900,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fxm1216st743rp3vmrc5d.png",
     excerpt:
       "Discover how Tailwind CSS revolutionizes styling in modern web development with utility-first classes and rapid UI building.",

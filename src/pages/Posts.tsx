@@ -45,8 +45,6 @@ export default function Posts() {
   if (sortBy === "recent" || sortBy === "oldest")
     posts = getSortedPosts(posts, sortBy);
 
-  // const { LoggedIn } = useUserContext();
-
   return (
     <div className="min-h-screen py-8 max-w-6xl mx-auto flex flex-col items-center">
       <section className="w-full px-8  ">
